@@ -15,7 +15,10 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var inputPassword: TextInputLayout
     private lateinit var loginLayout: ConstraintLayout
 
+    lateinit var  mBundle:Bundle
 
+    lateinit var vUser: String
+    lateinit var vPassword: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -31,7 +34,8 @@ class LoginActivity : AppCompatActivity() {
         inputPassword.getEditText()?.setText("")
 
         btnBackLoginListener()
-
+        getBundle()
+        setText()
 
 
 
@@ -64,5 +68,16 @@ class LoginActivity : AppCompatActivity() {
             val moveHome = Intent(this, MainActivity::class.java)
             startActivity(moveHome)
         }
+    }
+
+    fun getBundle(){
+        mBundle = intent.getBundleExtra("register")!!
+        vUser = mBundle.getString("username")!!
+        vPassword = mBundle.getString("password")!!
+    }
+
+    fun setText(){
+        inputUsername.getEditText()?.setText(vUser)
+        inputPassword.getEditText()?.setText(vPassword)
     }
 }

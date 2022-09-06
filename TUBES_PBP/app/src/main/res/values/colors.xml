@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primaryColor">#047ACF</color>
+<!--    <color name="btnColor">#047ACF</color>-->
 </resources>

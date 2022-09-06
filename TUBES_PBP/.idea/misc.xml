@@ -5,6 +5,11 @@
       <map>
         <entry key="..\:/PBP/Guided-PBP/Guided 3/GD3_D_0606/app/src/main/res/layout/fragment_dosen.xml" value="0.1" />
         <entry key="..\:/PBP/Guided-PBP/Guided 3/GD3_D_0606/app/src/main/res/layout/fragment_mahasiswa.xml" value="0.1" />
+        <entry key="..\:/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/drawable/button_shape.xml" value="0.1" />
+        <entry key="..\:/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/drawable/input_shape.xml" value="0.1785" />
+        <entry key="..\:/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/layout/activity_login.xml" value="0.1796875" />
+        <entry key="..\:/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/layout/activity_main.xml" value="0.14130434782608695" />
+        <entry key="..\:/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="..\:/nguli/PBP/Guided/GD3_D_0606/app/src/main/res/layout/activity_main.xml" value="0.22010869565217392" />
         <entry key="..\:/nguli/PBP/Guided/GD3_D_0606/app/src/main/res/layout/rv_item_dosen.xml" value="0.22010869565217392" />
         <entry key="..\:/nguli/PBP/Guided/GD3_D_0606/app/src/main/res/layout/rv_item_mahasiswa.xml" value="0.22010869565217392" />
@@ -21,8 +26,8 @@
         <entry key="..\:/nguli/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/drawable/input_shape.xml" value="0.2985" />
         <entry key="..\:/nguli/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/layout/activity_home.xml" value="0.22010869565217392" />
         <entry key="..\:/nguli/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/layout/activity_login.xml" value="0.24954710144927536" />
-        <entry key="..\:/nguli/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/layout/activity_main.xml" value="0.22" />
-        <entry key="..\:/nguli/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/layout/activity_register.xml" value="0.5" />
+        <entry key="..\:/nguli/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/nguli/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/layout/activity_register.xml" value="0.24954710144927536" />
         <entry key="..\:/nguli/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/menu/home_menu.xml" value="0.36102564102564105" />
       </map>
     </option>
