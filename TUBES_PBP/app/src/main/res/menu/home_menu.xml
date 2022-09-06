@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/menu_mahasiswa"
-        android:title="Mahasiswa" />
+    <item
+        android:id="@+id/ic_beranda"
+        android:icon="@drawable/ic_beranda_24"
+        android:title="Beranda"/>
 
-    <item android:id="@+id/menu_dosen"
-        android:title="Dosen"/>
+    <item
+        android:id="@+id/ic_pesanan"
+        android:icon="@drawable/ic_pesanan_24"
+        android:title="Pesanan"/>
 
-    <item android:id="@+id/menu_exit"
-        android:title="Exit App"/>
+    <item
+        android:id="@+id/ic_bookmark"
+        android:icon="@drawable/ic_bookmark_24"
+        android:title="Bookmark"/>
+
+    <item
+        android:id="@+id/ic_akun"
+        android:icon="@drawable/ic_akun_24"
+        android:title="Akun"/>
 
 
 </menu>

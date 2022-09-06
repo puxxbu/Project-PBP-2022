@@ -17,6 +17,7 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        supportActionBar?.hide()
 
         val btnLogin: Button = findViewById(R.id.btnLogin)
         val btnRegister: Button = findViewById(R.id.btnRegister)
@@ -31,7 +32,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(moveRegister)
         }
 
-//        setTitle("User Login")
 
     }
 }

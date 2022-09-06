@@ -21,6 +21,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        supportActionBar?.hide()
 
         inputNama = findViewById(R.id.til_namaLengkap)
         inputEmail = findViewById(R.id.til_email)

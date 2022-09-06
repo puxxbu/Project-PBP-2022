@@ -16,11 +16,47 @@
         app:layout_constraintTop_toTopOf="parent"
         android:id="@+id/reg_imgBack"/>
 
+
+    <!--    <LinearLayout-->
+    <!--        android:id="@+id/linearLayout3"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="16dp"-->
+    <!--        app:layout_constraintEnd_toEndOf="parent"-->
+    <!--        app:layout_constraintHorizontal_bias="0.502"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/reg_btnRegister">-->
+
+
+
+    <!--        <TextView-->
+    <!--            android:id="@+id/textView"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="8dp"-->
+
+    <!--            android:text="Sudah Memiliki Akun? "-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintStart_toStartOf="parent"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/reg_btnRegister" />-->
+
+    <!--        <TextView-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:layout_marginTop="8dp"-->
+    <!--            android:fontFamily="@font/poppinsbold"-->
+    <!--            android:text="Login"-->
+    <!--            app:layout_constraintEnd_toEndOf="parent"-->
+    <!--            app:layout_constraintHorizontal_bias="0.0"-->
+    <!--            app:layout_constraintStart_toEndOf="@+id/textView"-->
+    <!--            app:layout_constraintTop_toBottomOf="@+id/reg_btnRegister" />-->
+    <!--    </LinearLayout>-->
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="48dp"
         android:orientation="vertical"
         android:padding="16dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,16 +64,15 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_namaLengkap"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:background="@drawable/input_shape"
             android:backgroundTint="#EDEDED"
             android:hint="Nama Lengkap"
 
-            app:errorEnabled="true"
-            app:helperText="Masukkan Nama Lengkap Anda!">
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -49,158 +84,117 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_tglLahir"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:background="@drawable/input_shape"
             android:backgroundTint="#EDEDED"
             android:hint="Tanggal Lahir"
 
-            app:errorEnabled="true"
-            app:helperText="Masukkan Tanggal lahir">
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_noHP"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:background="@drawable/input_shape"
             android:backgroundTint="#EDEDED"
             android:hint="Nomor HP"
 
-            app:errorEnabled="true"
-            app:helperText="Masukkan HP Anda!">
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:background="@drawable/input_shape"
             android:backgroundTint="#EDEDED"
             android:hint="Email"
 
-            app:errorEnabled="true"
-            app:helperText="Masukkan Email Anda!">
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_username"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:background="@drawable/input_shape"
             android:backgroundTint="#EDEDED"
             android:hint="Username"
 
-            app:errorEnabled="true"
-            app:helperText="Masukkan Username Anda!">
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:background="@drawable/input_shape"
             android:backgroundTint="#EDEDED"
             android:hint="Password"
 
-            app:errorEnabled="true"
-            app:helperText="Masukkan Password Anda!">
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_verPassword"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content"
+
             android:background="@drawable/input_shape"
             android:backgroundTint="#EDEDED"
             android:hint="Konfirmasi Password"
 
-            app:errorEnabled="true"
-            app:helperText="Masukkan Password Anda!">
+            app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
                 android:inputType="textPassword" />
 
         </com.google.android.material.textfield.TextInputLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reg_btnRegister">
-
-
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-
-            android:text="Sudah Memiliki Akun? "
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/reg_btnRegister" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/poppinsbold"
-            android:text="Login"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/textView"
-            app:layout_constraintTop_toBottomOf="@+id/reg_btnRegister" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -208,7 +202,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="12dp"
         android:layout_marginEnd="32dp"
         android:layout_weight="1"
         android:background="@drawable/button_shape"
