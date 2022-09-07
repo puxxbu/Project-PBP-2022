@@ -7,6 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.tubes_pbp.R
 
-class AkunFragment : Fragment() {
+class AkunFragment : Fragment(R.layout.fragment_akun) {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_akun, container, false)
+    }
 
 }

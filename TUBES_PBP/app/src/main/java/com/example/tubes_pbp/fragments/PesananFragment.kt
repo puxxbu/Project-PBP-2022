@@ -7,6 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.tubes_pbp.R
 
-class PesananFragment : Fragment() {
+class PesananFragment : Fragment(R.layout.fragment_pesanan) {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_pesanan, container, false)
+    }
 
 }

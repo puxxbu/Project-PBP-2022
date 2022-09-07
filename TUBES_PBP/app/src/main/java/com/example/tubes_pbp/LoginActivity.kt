@@ -34,6 +34,8 @@ class LoginActivity : AppCompatActivity() {
         val btnLogin: Button = findViewById(R.id.btnLogin)
         inputUsername.getEditText()?.setText("")
         inputPassword.getEditText()?.setText("")
+        vUser = ""
+        vPassword = ""
 
         val mySnackbar = Snackbar.make(loginLayout,"Registrasi Terlebih Dahulu !",Snackbar.LENGTH_SHORT)
 
@@ -45,29 +47,29 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener(View.OnClickListener {
+            var checkLogin = false
+            if(vUser.isNotEmpty() && vPassword.isNotEmpty()){
+                val username: String = inputUsername.getEditText()?.getText().toString()
+                val password: String = inputPassword.getEditText()?.getText().toString()
 
-            if(intent.getBundleExtra("register") == null){
+                if (username.isEmpty()){
+                    inputUsername.setError("Username must be filled with text")
+                    checkLogin = false
+                }
+
+                if (password.isEmpty()){
+                    inputPassword.setError("Password must be filled with text")
+                    checkLogin = false
+                }
+
+                if (username == vUser && password == vPassword) checkLogin = true
+                if (!checkLogin) return@OnClickListener
+                val moveHome = Intent(this, HomeActivity::class.java)
+                startActivity(moveHome)
+//                setContentView(R.layout.activity_home)
+            }else{
                 mySnackbar.show()
             }
-            var checkLogin = false
-            val username: String = inputUsername.getEditText()?.getText().toString()
-            val password: String = inputPassword.getEditText()?.getText().toString()
-
-            if (username.isEmpty()){
-                inputUsername.setError("Username must be filled with text")
-                checkLogin = false
-            }
-
-            if (password.isEmpty()){
-                inputPassword.setError("Password must be filled with text")
-                checkLogin = false
-            }
-
-            if (username == vUser && password == vPassword) checkLogin = true
-            if (!checkLogin) return@OnClickListener
-//            val moveHome = Intent(this, HomeActivity::class.java)
-//            startActivity(moveHome)
-            setContentView(R.layout.activity_home)
 
         })
     }
