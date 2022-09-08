@@ -1,12 +1,16 @@
 package com.example.tubes_pbp
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var inputNama: TextInputLayout
@@ -16,6 +20,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var inputUsername : TextInputLayout
     private lateinit var inputPassword : TextInputLayout
     private lateinit var inputKonfirmasi : TextInputLayout
+    private lateinit var textTglLahir : TextInputEditText
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,10 +34,23 @@ class RegisterActivity : AppCompatActivity() {
         inputTglLahir = findViewById(R.id.til_tglLahir)
         inputUsername = findViewById(R.id.til_username)
         inputPassword = findViewById(R.id.til_password)
-        inputKonfirmasi = findViewById(R.id.til_verPassword)
+        textTglLahir = findViewById(R.id.tiet_tglLahir)
 
         btnBackLoginListener()
         btnRegisterListener()
+
+        val myCalendar = Calendar.getInstance()
+
+        val datePicker = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            myCalendar.set(Calendar.YEAR, year)
+            myCalendar.set(Calendar.MONTH, month)
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateLable(myCalendar)
+        }
+
+        textTglLahir.setOnClickListener {
+            DatePickerDialog(this, datePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
     }
 
     private fun btnRegisterListener(){
@@ -45,7 +63,6 @@ class RegisterActivity : AppCompatActivity() {
             val noHp: String = inputNoHP.getEditText()?.getText().toString()
             val email: String = inputEmail.getEditText()?.getText().toString()
             val tglLahir: String = inputTglLahir.getEditText()?.getText().toString()
-            val confirmPassword: String = inputKonfirmasi.getEditText()?.getText().toString()
 
             val mBundle = Bundle()
 
@@ -82,13 +99,10 @@ class RegisterActivity : AppCompatActivity() {
                 checkRegister = false
             }
 
-            if (confirmPassword.isEmpty()){
-                inputKonfirmasi.setError("Password must be filled with text")
-                checkRegister = false
-            }
 
 
-            if(!nama.isEmpty() && !tglLahir.isEmpty() && !noHp.isEmpty() && !email.isEmpty() && !username.isEmpty() && !password.isEmpty() && !confirmPassword.isEmpty()){
+
+            if(!nama.isEmpty() && !tglLahir.isEmpty() && !noHp.isEmpty() && !email.isEmpty() && !username.isEmpty() && !password.isEmpty() ){
                 checkRegister = true
             }
 
@@ -112,5 +126,11 @@ class RegisterActivity : AppCompatActivity() {
             val moveHome = Intent(this, MainActivity::class.java)
             startActivity(moveHome)
         }
+    }
+
+    private fun updateLable(myCalendar: Calendar){
+        val myFormat = "dd-MM-yyyy"
+        val sdf = SimpleDateFormat(myFormat, Locale.UK )
+        textTglLahir.setText(sdf.format(myCalendar.time))
     }
 }
