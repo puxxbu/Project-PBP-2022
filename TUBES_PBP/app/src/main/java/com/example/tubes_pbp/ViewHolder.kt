@@ -9,6 +9,7 @@ import com.example.tubes_pbp.entity.Hotel
 
 class ViewHolder(inflater: LayoutInflater, parent: ViewGroup): RecyclerView.ViewHolder(inflater.inflate(R.layout.hotel_view_template, parent, false)) {
 
+
     private var imgView: ImageView? = null
     private var txtTittle: TextView? = null
     private var txtSubTittle: TextView? = null
