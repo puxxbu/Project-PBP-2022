@@ -7,6 +7,7 @@ import com.example.tubes_pbp.entity.Hotel
 
 class MyAdapter(private val data: ArrayList<Hotel>): RecyclerView.Adapter<ViewHolder>() {
 
+    // menjelaskan tampilan data dalam recycler view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater: LayoutInflater = LayoutInflater.from(parent.context)
         return ViewHolder(inflater, parent)
