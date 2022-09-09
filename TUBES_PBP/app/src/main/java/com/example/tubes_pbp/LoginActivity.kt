@@ -60,7 +60,19 @@ class LoginActivity : AppCompatActivity() {
                     checkLogin = false
                 }
 
-                if (username == vUser && password == vPassword) checkLogin = true
+                if (username == vUser && password == vPassword) {
+                    checkLogin = true
+                } else if(username != vUser && password == vPassword){
+                    inputUsername.setError("Username tidak sesuai !")
+                    checkLogin = false
+                } else if(username == vUser && password != vPassword){
+                    inputPassword.setError("Password tidak sesuai !")
+                    checkLogin = false
+                } else{
+                    inputUsername.setError("Username tidak sesuai !")
+                    inputPassword.setError("Password tidak sesuai !")
+                    checkLogin = false
+                }
                 if (!checkLogin) return@OnClickListener
                 val moveHome = Intent(this, HomeActivity::class.java)
                 startActivity(moveHome)
