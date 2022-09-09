@@ -48,6 +48,8 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
         data.add(Hotel(R.drawable.hotel12, "Hotel Borobudur Jakarta", "Jalan Lapangan Benteng Selatan No. 1 Jakarta"))
         data.add(Hotel(R.drawable.hotel3, "Grand Rohan Yogyakarta", "Jl. Suryotomo No. 31 Yogyakarta"))
         data.add(Hotel(R.drawable.hotel4, "Sheraton Mustika Yogyakarta Resort and Spa", "Jl. Laksda Adisucipto Km.8,7 Yogyakarta"))
+        data.add(Hotel(R.drawable.hotel11, "Cokro Adimojo Hotel", "Jl. Amidagla No. 31 Yogyakarta"))
+        data.add(Hotel(R.drawable.hotel7, "Hotel Asal Nama", "Jl. Laksda Adisucipto Km.102 Yogyakarta"))
 
         adapter = MyAdapter(data)
     }
