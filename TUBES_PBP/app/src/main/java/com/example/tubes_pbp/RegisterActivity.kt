@@ -36,6 +36,8 @@ class RegisterActivity : AppCompatActivity() {
         inputPassword = findViewById(R.id.til_password)
         textTglLahir = findViewById(R.id.tiet_tglLahir)
 
+        textTglLahir.setFocusable(false)
+
         btnBackLoginListener()
         btnRegisterListener()
 
