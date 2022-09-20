@@ -6,22 +6,20 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.ViewModelProvider
 import com.example.tubes_pbp.entity.room.Users
 import com.example.tubes_pbp.entity.room.UsersDB
-import com.example.tubes_pbp.entity.room.UsersViewModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
-    private lateinit var mUsersViewModel:UsersViewModel
+
+    private lateinit var usersDb :UsersDB
     private lateinit var inputNama: TextInputLayout
     private lateinit var inputEmail: TextInputLayout
     private lateinit var inputNoHP : TextInputLayout
@@ -37,7 +35,8 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
         supportActionBar?.hide()
 
-        mUsersViewModel = ViewModelProvider(this).get(UsersViewModel::class.java)
+
+        usersDb = UsersDB.getDatabase(this)
 
         inputNama = findViewById(R.id.til_namaLengkap)
         inputEmail = findViewById(R.id.til_email)
@@ -127,7 +126,10 @@ class RegisterActivity : AppCompatActivity() {
 //                val moveLogin = Intent(this, LoginActivity::class.java)
 
                 val user = Users(0,username,password,nama,email,noHp,tglLahir)
-                mUsersViewModel.addUser(user)
+                GlobalScope.launch(Dispatchers.IO){
+                    usersDb.usersDao().addUsers(user)
+
+                }
                 Toast.makeText(this,"Masukkan berhasil!",Toast.LENGTH_SHORT).show()
 
 
