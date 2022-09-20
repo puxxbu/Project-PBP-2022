@@ -5,14 +5,22 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import com.example.tubes_pbp.entity.room.Users
+import com.example.tubes_pbp.entity.room.UsersDB
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RegisterActivity : AppCompatActivity() {
+    val db by lazy { UsersDB(this) }
+    private var usersId: Int = 0
     private lateinit var inputNama: TextInputLayout
     private lateinit var inputEmail: TextInputLayout
     private lateinit var inputNoHP : TextInputLayout
@@ -114,6 +122,14 @@ class RegisterActivity : AppCompatActivity() {
 
             }else{
                 val moveLogin = Intent(this, LoginActivity::class.java)
+
+                db.usersDao().addUsers(
+                    Users(0,username,password,nama,email,noHp,tglLahir)
+                )
+
+                Toast.makeText(this, usersId.toString(),Toast.LENGTH_SHORT).show()
+
+
 
                 moveLogin.putExtra("register",mBundle)
 

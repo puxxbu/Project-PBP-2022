@@ -9,6 +9,7 @@ data class Users (
     val id: Int,
     val username: String,
     val password: String,
+    val nama: String,
     val email: String,
     val noHP: String,
     val tglLahir: String
