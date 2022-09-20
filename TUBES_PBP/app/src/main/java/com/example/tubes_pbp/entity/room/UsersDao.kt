@@ -6,14 +6,17 @@ import androidx.room.*
 interface UsersDao {
 
     @Insert
-     fun addUsers(users: Users)
+    suspend fun addUsers(users: Users)
 
     @Update
-     fun updateUsers(users: Users)
+    suspend fun updateUsers(users: Users)
 
     @Delete
-     fun deleteUsers(users: Users)
+    suspend fun deleteUsers(users: Users)
 
     @Query("SELECT * FROM users WHERE id=:users_id")
     fun getUsers(users_id: Int) : List<Users>
+
+    @Query ("SELECT * FROM users ")
+    fun readAllData() : List<Users>
 }
