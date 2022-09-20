@@ -58,6 +58,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun btnRegisterListener(){
         reg_btnRegister.setOnClickListener(View.OnClickListener {
             var checkRegister = false
+            resetAlert()
 
             val username: String = inputUsername.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
@@ -72,32 +73,32 @@ class RegisterActivity : AppCompatActivity() {
             mBundle.putString("password", password)
 
             if (username.isEmpty()){
-                inputUsername.setError("Username must be filled with text")
+                inputUsername.setError("Username must be filled ")
                 checkRegister = false
             }
 
             if (password.isEmpty()){
-                inputPassword.setError("Password must be filled with text")
+                inputPassword.setError("Password must be filled ")
                 checkRegister = false
             }
 
             if (nama.isEmpty()){
-                inputNama.setError("Password must be filled with text")
+                inputNama.setError("Nama must be filled ")
                 checkRegister = false
             }
 
             if (noHp.isEmpty()){
-                inputNoHP.setError("Password must be filled with text")
+                inputNoHP.setError("Nomor HP must be filled ")
                 checkRegister = false
             }
 
             if (email.isEmpty()){
-                inputEmail.setError("Password must be filled with text")
+                inputEmail.setError("Email must be filled ")
                 checkRegister = false
             }
 
             if (tglLahir.isEmpty()){
-                inputTglLahir.setError("Username must be filled with text")
+                inputTglLahir.setError("Tanggal Lahir must be filled ")
                 checkRegister = false
             }
 
@@ -134,5 +135,19 @@ class RegisterActivity : AppCompatActivity() {
         val myFormat = "dd-MM-yyyy"
         val sdf = SimpleDateFormat(myFormat, Locale.UK )
         textTglLahir.setText(sdf.format(myCalendar.time))
+    }
+
+    private fun resetAlert(){
+        inputUsername.setError(null)
+
+        inputPassword.setError(null)
+
+        inputNama.setError(null)
+
+        inputNoHP.setError(null)
+
+        inputEmail.setError(null)
+
+        inputTglLahir.setError(null)
     }
 }
