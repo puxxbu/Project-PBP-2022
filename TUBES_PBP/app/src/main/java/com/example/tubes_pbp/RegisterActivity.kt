@@ -35,6 +35,7 @@ class RegisterActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         binding.tietTglLahir.setFocusable(false)
+        usersDb = UsersDB.getDatabase(this)
 
         val myCalendar = Calendar.getInstance()
 
@@ -122,13 +123,12 @@ class RegisterActivity : AppCompatActivity() {
                  return@OnClickListener
 
              }else {
-//                val moveLogin = Intent(this, LoginActivity::class.java)
+                val moveLogin = Intent(this, LoginActivity::class.java)
 
-//                val user = Users(0,username,password,nama,email,noHp,tglLahir)
-//                GlobalScope.launch(Dispatchers.IO){
-//                    usersDb.usersDao().addUsers(user)
-//
-//                }
+                val user = Users(0,username,password,nama,email,noHp,tglLahir)
+                GlobalScope.launch(Dispatchers.IO){
+                    usersDb.usersDao().addUsers(user)
+                }
                  Toast.makeText(this, "Masukkan berhasil!", Toast.LENGTH_SHORT).show()
 
              }
