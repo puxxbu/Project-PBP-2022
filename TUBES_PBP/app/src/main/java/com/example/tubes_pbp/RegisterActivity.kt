@@ -17,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_register.view.*
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -26,6 +27,7 @@ import java.util.*
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var usersDb: UsersDB
+    private lateinit var prefManager: PrefManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,9 +127,16 @@ class RegisterActivity : AppCompatActivity() {
              }else {
                 val moveLogin = Intent(this, LoginActivity::class.java)
 
+                moveLogin.putExtra("register",mBundle)
+                startActivity(moveLogin)
+
+                prefManager = PrefManager(this)
+                prefManager.setUsername(username)
+
                 val user = Users(0,username,password,nama,email,noHp,tglLahir)
-                GlobalScope.launch(Dispatchers.IO){
-                    usersDb.usersDao().addUsers(user)
+                CoroutineScope(Dispatchers.IO).launch{
+                     usersDb.usersDao().addUsers(user)
+                     finish()
                 }
                  Toast.makeText(this, "Masukkan berhasil!", Toast.LENGTH_SHORT).show()
 

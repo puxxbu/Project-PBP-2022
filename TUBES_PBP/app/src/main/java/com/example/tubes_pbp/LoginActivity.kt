@@ -3,12 +3,18 @@ package com.example.tubes_pbp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import androidx.constraintlayout.widget.ConstraintLayout
+import com.example.tubes_pbp.entity.room.UsersDB
 import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var inputUsername: TextInputLayout
@@ -17,14 +23,24 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var  mBundle:Bundle
 
+    private lateinit var usersDb: UsersDB
+    private lateinit var prefManager: PrefManager
+
     lateinit var vUser: String
     lateinit var vPassword: String
+    private var checkLogin = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         supportActionBar?.hide()
+
+        prefManager = PrefManager(this)
+
+        usersDb = UsersDB.getDatabase(this)
+
+        val moveHome = Intent(this, HomeActivity::class.java)
 
         inputUsername = findViewById(R.id.inputLayoutUsername)!!
         inputPassword = findViewById(R.id.inputLayoutPassword)!!
@@ -45,41 +61,79 @@ class LoginActivity : AppCompatActivity() {
         }
 
         btnLogin.setOnClickListener(View.OnClickListener {
-            var checkLogin = false
-            if(vUser.isNotEmpty() && vPassword.isNotEmpty()){
-                val username: String = inputUsername.getEditText()?.getText().toString()
-                val password: String = inputPassword.getEditText()?.getText().toString()
+            prefManager.setLoggin(false)
 
-                if (username.isEmpty()){
-                    inputUsername.setError("Username must be filled with text")
-                    checkLogin = false
-                }
+            val username: String = inputUsername.getEditText()?.getText().toString()
+            val password: String = inputPassword.getEditText()?.getText().toString()
 
-                if (password.isEmpty()){
-                    inputPassword.setError("Password must be filled with text")
-                    checkLogin = false
-                }
-
-                if (username == vUser && password == vPassword) {
-                    checkLogin = true
-                } else if(username != vUser && password == vPassword){
-                    inputUsername.setError("Username tidak sesuai !")
-                    checkLogin = false
-                } else if(username == vUser && password != vPassword){
-                    inputPassword.setError("Password tidak sesuai !")
-                    checkLogin = false
-                } else{
-                    inputUsername.setError("Username tidak sesuai !")
-                    inputPassword.setError("Password tidak sesuai !")
-                    checkLogin = false
-                }
-                if (!checkLogin) return@OnClickListener
-                val moveHome = Intent(this, HomeActivity::class.java)
-                startActivity(moveHome)
-//                setContentView(R.layout.activity_home)
-            }else{
-                mySnackbar.show()
+            if (username.isEmpty()){
+                inputUsername.setError("Username must be filled with text")
+                prefManager.setLoggin(false)
             }
+
+            if (password.isEmpty()){
+                inputPassword.setError("Password must be filled with text")
+                prefManager.setLoggin(false)
+            }
+
+            CoroutineScope(Dispatchers.IO).launch {
+                val user = usersDb.usersDao().getUser(username,password)
+
+                if (user == null){
+                    Log.d("LoginActivity","USER IS NULL")
+                    withContext(Dispatchers.Main){
+                        inputUsername.setError("Username tidak sesuai !")
+                        inputPassword.setError("Password tidak sesuai !")
+                        prefManager.setLoggin(false)
+
+                    }
+                }else{
+                    Log.d("LoginActivity","USER FOUND")
+                    withContext(Dispatchers.Main){
+                        startActivity(moveHome)
+                        prefManager.setLoggin(true)
+                        prefManager.setUser(user)
+                    }
+
+                }
+
+            }
+
+//
+//            if(vUser.isNotEmpty() && vPassword.isNotEmpty()){
+//                val username: String = inputUsername.getEditText()?.getText().toString()
+//                val password: String = inputPassword.getEditText()?.getText().toString()
+//
+//                if (username.isEmpty()){
+//                    inputUsername.setError("Username must be filled with text")
+//                    checkLogin = false
+//                }
+//
+//                if (password.isEmpty()){
+//                    inputPassword.setError("Password must be filled with text")
+//                    checkLogin = false
+//                }
+//
+//                if (username == vUser && password == vPassword) {
+//                    checkLogin = true
+//                } else if(username != vUser && password == vPassword){
+//                    inputUsername.setError("Username tidak sesuai !")
+//                    checkLogin = false
+//                } else if(username == vUser && password != vPassword){
+//                    inputPassword.setError("Password tidak sesuai !")
+//                    checkLogin = false
+//                } else{
+//                    inputUsername.setError("Username tidak sesuai !")
+//                    inputPassword.setError("Password tidak sesuai !")
+//                    checkLogin = false
+//                }
+//                if (!checkLogin) return@OnClickListener
+//                val moveHome = Intent(this, HomeActivity::class.java)
+//                startActivity(moveHome)
+////                setContentView(R.layout.activity_home)
+//            }else{
+//                mySnackbar.show()
+//            }
 
         })
     }
