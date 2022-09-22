@@ -3,6 +3,8 @@ package com.example.tubes_pbp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import com.example.tubes_pbp.databinding.ActivityHomeBinding
+import com.example.tubes_pbp.databinding.ActivityRegisterBinding
 import com.example.tubes_pbp.fragments.AkunFragment
 import com.example.tubes_pbp.fragments.BerandaFragment
 import com.example.tubes_pbp.fragments.BookmarkFragment
@@ -10,6 +12,8 @@ import com.example.tubes_pbp.fragments.PesananFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
+
+    private lateinit var binding : ActivityHomeBinding
 
     private val berandaFragment: Fragment = BerandaFragment()
     private val pesananFragment: Fragment = PesananFragment()

@@ -94,6 +94,7 @@
             android:backgroundTint="#EDEDED"
             android:hint="Tanggal Lahir"
 
+
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
