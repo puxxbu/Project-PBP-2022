@@ -1,17 +1,22 @@
 package com.example.tubes_pbp.fragments
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import com.example.tubes_pbp.MainActivity
 import com.example.tubes_pbp.PrefManager
 import com.example.tubes_pbp.R
 import com.example.tubes_pbp.databinding.FragmentAkunBinding
 import com.example.tubes_pbp.entity.room.UsersDB
 import kotlinx.android.synthetic.main.fragment_akun.view.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class AkunFragment : Fragment(R.layout.fragment_akun) {
     private var _binding : FragmentAkunBinding? = null
@@ -44,6 +49,18 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
         binding.tietTglLahir.setText(tglLahir)
         binding.tietNoHP.setText(noHP)
         binding.tietEmail.setText(email)
+
+        binding.btnEdit.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                val id = prefManager.getUser()?.id
+                val nama = binding.tilNamaLengkap.getEditText()?.getText().toString()
+                val tglLahir = binding.tilTglLahir.getEditText()?.getText().toString()
+                val noHP = binding.tilTglLahir.getEditText()?.getText().toString()
+                val email = binding.tilEmail.getEditText()?.getText().toString()
+                usersDb.usersDao().updateUser(id,nama,tglLahir,noHP,email)
+
+            }
+        }
 
 
 

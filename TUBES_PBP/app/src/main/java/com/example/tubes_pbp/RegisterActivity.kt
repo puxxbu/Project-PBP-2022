@@ -75,9 +75,9 @@ class RegisterActivity : AppCompatActivity() {
          binding.regBtnRegister.setOnClickListener(View.OnClickListener {
             var checkRegister = false
             resetAlert(binding)
-             val username =  binding.tilNamaLengkap.getEditText()?.getText().toString()
+             val username =  binding.tilUsername.getEditText()?.getText().toString()
              val password: String =   binding.tilPassword.getEditText()?.getText().toString()
-             val nama: String = binding.tilUsername.getEditText()?.getText().toString()
+             val nama: String = binding.tilNamaLengkap.getEditText()?.getText().toString()
              val noHp: String = binding.tilNoHP.getEditText()?.getText().toString()
              val email: String = binding.tilEmail.getEditText()?.getText().toString()
              val tglLahir: String = binding.tilTglLahir.getEditText()?.getText().toString()

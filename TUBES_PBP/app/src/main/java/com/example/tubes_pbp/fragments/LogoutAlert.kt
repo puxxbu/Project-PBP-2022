@@ -9,10 +9,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.DialogFragment
 import com.example.tubes_pbp.MainActivity
+import com.example.tubes_pbp.PrefManager
 import com.example.tubes_pbp.R
 import kotlinx.android.synthetic.main.fragment_logout_alert.view.*
 
 class LogoutAlert : DialogFragment() {
+    private lateinit var prefManager: PrefManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,6 +26,7 @@ class LogoutAlert : DialogFragment() {
         }
 
         rootView.btnConfirm.setOnClickListener {
+            prefManager.removeData()
             val intent = Intent ( getActivity(), MainActivity::class.java)
             getActivity()?.onBackPressed()
             startActivity(intent)

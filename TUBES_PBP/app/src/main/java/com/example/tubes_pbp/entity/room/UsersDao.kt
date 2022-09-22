@@ -14,6 +14,9 @@ interface UsersDao {
     @Delete
     suspend fun deleteUsers(users: Users)
 
+    @Query ("UPDATE users SET nama=:nama, tglLahir=:tglLahir, noHP=:noHP, email=:email   WHERE id=:id ")
+    suspend fun updateUser(id: Int?,nama: String, tglLahir: String, noHP: String, email: String, )
+
 //    @Query("SELECT * FROM users WHERE id=:users_id")
 //    fun getUsers(users_id: Int) : List<Users>
 
