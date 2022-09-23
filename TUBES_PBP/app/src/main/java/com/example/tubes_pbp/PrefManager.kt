@@ -14,6 +14,7 @@ class PrefManager(var context: Context?) {
     private val PREF_NAME = "SharedPreferences"
 
     private val IS_LOGIN = "is_login"
+    private val IS_INSTALL = "is_install"
 
     var pref: SharedPreferences? = context?.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
     var editor: SharedPreferences.Editor? = pref?.edit()
@@ -27,6 +28,15 @@ class PrefManager(var context: Context?) {
         var json = Gson().toJson(user)
         editor?.putString("user", json)
         editor?.commit()
+    }
+
+    fun setInstall(isInstall: Boolean){
+        editor?.putBoolean(IS_INSTALL,isInstall)
+        editor?.commit()
+    }
+
+    fun isInstalled(): Boolean?{
+        return pref?.getBoolean(IS_INSTALL,false)
     }
 
     fun getUser(): Users? {

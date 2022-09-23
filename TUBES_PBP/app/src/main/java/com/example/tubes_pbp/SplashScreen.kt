@@ -8,20 +8,34 @@ import android.view.WindowManager
 
 @Suppress("DEPRECATION")
 class SplashScreen : AppCompatActivity() {
+    private lateinit var prefManager: PrefManager
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash_screen)
         supportActionBar?.hide()
+        prefManager = PrefManager(this)
 
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAG_FULLSCREEN
-        )
+        if (prefManager.isInstalled() == false){
+            setContentView(R.layout.activity_splash_screen)
+            prefManager.setInstall(true)
 
-        Handler().postDelayed({
+
+            window.setFlags(
+                WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            )
+
+            Handler().postDelayed({
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }, 3000)
+        }else{
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
-        }, 3000)
+        }
+
+
     }
 }
