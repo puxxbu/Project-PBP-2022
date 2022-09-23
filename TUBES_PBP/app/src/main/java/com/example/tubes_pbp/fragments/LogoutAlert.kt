@@ -26,7 +26,6 @@ class LogoutAlert : DialogFragment() {
         }
 
         rootView.btnConfirm.setOnClickListener {
-            prefManager.removeData()
             val intent = Intent ( getActivity(), MainActivity::class.java)
             getActivity()?.onBackPressed()
             startActivity(intent)
