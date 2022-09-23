@@ -23,8 +23,6 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
             dialog.show(parentFragmentManager, "alertLogout" )
         }
 
-
-
         return rootView
     }
 

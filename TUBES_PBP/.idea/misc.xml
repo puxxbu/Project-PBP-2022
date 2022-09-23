@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/BRANCH/TUBES_PBP/app/src/main/res/drawable/button_shape.xml" value="0.1525" />
+        <entry key="..\:/BRANCH/TUBES_PBP/app/src/main/res/drawable/ic_akun_24.xml" value="0.1525" />
+        <entry key="..\:/BRANCH/TUBES_PBP/app/src/main/res/layout/activity_main.xml" value="0.209375" />
+        <entry key="..\:/BRANCH/TUBES_PBP/app/src/main/res/layout/activity_profile.xml" value="0.25" />
+        <entry key="..\:/BRANCH/TUBES_PBP/app/src/main/res/layout/activity_register.xml" value="0.209375" />
+        <entry key="..\:/BRANCH/TUBES_PBP/app/src/main/res/layout/fragment_akun.xml" value="0.22" />
         <entry key="..\:/PBP/Guided-PBP/Guided 3/GD3_D_0606/app/src/main/res/layout/fragment_dosen.xml" value="0.1" />
         <entry key="..\:/PBP/Guided-PBP/Guided 3/GD3_D_0606/app/src/main/res/layout/fragment_mahasiswa.xml" value="0.1" />
         <entry key="..\:/ProjectTubes/TUBES_PBP/app/src/main/res/layout/activity_main.xml" value="0.13179347826086957" />
