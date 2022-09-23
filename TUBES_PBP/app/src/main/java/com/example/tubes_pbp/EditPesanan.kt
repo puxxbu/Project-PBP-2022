@@ -21,6 +21,8 @@ class EditPesanan : AppCompatActivity()  {
         setContentView(R.layout.activity_edit_pesanan)
         usersDb = UsersDB.getDatabase(this)
 
+        getSupportActionBar()?.setTitle("Edit Pesanan")
+
         setupView()
         setupListener()
 

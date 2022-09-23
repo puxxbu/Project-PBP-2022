@@ -23,6 +23,9 @@ interface UsersDao {
     @Query("SELECT * FROM users WHERE username=:user AND password=:pass")
     suspend fun getUser(user: String , pass: String) :Users
 
+    @Query("SELECT * FROM users WHERE id=:id")
+    suspend fun getUserbyID(id: Int?) :Users
+
     @Query ("SELECT * FROM users ")
     fun readAllData() : List<Users>
 }
