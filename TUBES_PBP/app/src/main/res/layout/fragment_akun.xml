@@ -31,27 +31,28 @@
         </RelativeLayout>
 
         <TextView
-            android:id="@+id/text_name"
+            android:id="@+id/text_namaUser"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/img_user"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="20dp"
-            android:text="Bayu Skuyy"
+            android:text="UserNama"
             android:textColor="@color/black"
             android:textSize="30sp" />
 
         <Button
+            android:id="@+id/btnLogout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="40dp"
             android:layout_marginTop="12dp"
             android:layout_toRightOf="@id/img_user"
-            android:backgroundTint="#6BA5F2"
+            android:backgroundTint="#5291E8"
             android:text="Logout"
-            android:textColor="@color/black"/>
+            android:textColor="@color/white" />
 
     </RelativeLayout>
 
@@ -65,7 +66,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="30dp"
             android:orientation="vertical">
 
@@ -148,12 +149,13 @@
         </LinearLayout>
 
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/btnEdit"
+            android:layout_width="224dp"
             android:layout_height="wrap_content"
             android:layout_below="@id/lin_atas"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:backgroundTint="#044BD9"
-            android:text="update"/>
+            android:text="update" />
     </RelativeLayout>
 </RelativeLayout>
