@@ -154,6 +154,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="8dp"
             android:backgroundTint="#044BD9"
-            android:text="Update" />
+            android:text="update"/>
     </RelativeLayout>
 </RelativeLayout>
