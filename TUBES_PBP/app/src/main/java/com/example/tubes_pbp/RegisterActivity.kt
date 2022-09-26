@@ -92,13 +92,9 @@ class RegisterActivity : AppCompatActivity() {
                 description = descriptionText
             }
 
-
             val notificationManager : NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel1)
-
-
-
         }
     }
 
