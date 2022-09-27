@@ -34,7 +34,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var inputUsername: TextInputLayout
     private lateinit var inputPassword: TextInputLayout
     private lateinit var loginLayout: ConstraintLayout
-    private val CHANNEL_ID = "login_notofication"
+    private val CHANNEL_ID = "login_notification"
     private val notificationId = 101
 
     lateinit var  mBundle:Bundle
@@ -110,8 +110,9 @@ class LoginActivity : AppCompatActivity() {
                         startActivity(moveHome)
                         prefManager.setLoggin(true)
                         prefManager.setUser(user)
+                        sendNotification()
                     }
-                    sendNotification()
+
                 }
 
             }
@@ -167,6 +168,7 @@ class LoginActivity : AppCompatActivity() {
             val notificationManager : NotificationManager =
                 getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel1)
+
         }
     }
 
