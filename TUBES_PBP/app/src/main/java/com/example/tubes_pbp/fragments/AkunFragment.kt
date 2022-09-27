@@ -148,7 +148,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
             val name = "Notification Title"
             val descriptionText = "Notification Description"
 
-            val channel1 = NotificationChannel(CHANNEL_ID,"Main Channel", NotificationManager.IMPORTANCE_DEFAULT).apply {
+            val channel1 = NotificationChannel(CHANNEL_ID,"Main Channel", NotificationManager.IMPORTANCE_LOW).apply {
                 description = descriptionText
             }
             val channel2 = NotificationChannel(CHANNEL_ID2,"Second Channel", NotificationManager.IMPORTANCE_LOW).apply {
