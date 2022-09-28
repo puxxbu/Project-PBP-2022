@@ -7,6 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
@@ -16,6 +17,7 @@ import com.example.tubes_pbp.databinding.FragmentAkunBinding
 import com.example.tubes_pbp.entity.room.Constant
 import com.example.tubes_pbp.entity.room.Pesanan
 import com.example.tubes_pbp.entity.room.UsersDB
+import com.example.tubes_pbp.notifications.NotificationReceiver
 import kotlinx.android.synthetic.main.activity_edit_pesanan.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -35,6 +37,7 @@ class EditPesanan : AppCompatActivity()  {
         getSupportActionBar()?.setTitle("Pesanan")
 
         setupView()
+        createNotificationChannel()
         setupListener()
 
     }
@@ -111,8 +114,14 @@ class EditPesanan : AppCompatActivity()  {
         val intent = Intent(this, EditPesanan::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
+
         val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
+        val broadcastIntent : Intent = Intent(this, NotificationReceiver::class.java)
+        val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+
+        Log.d("notif","NOTIF PESANAN ")
         val builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.travelpic)
             .setContentTitle("Pesanan")
@@ -121,7 +130,7 @@ class EditPesanan : AppCompatActivity()  {
                     "dan telah ditambahkan di daftar pesanan."))
             .setContentIntent(pendingIntent)
             .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
-        with(NotificationManagerCompat.from(this)){
+            with(NotificationManagerCompat.from(this)){
             notify(notificationId, builder.build())
         }
     }
