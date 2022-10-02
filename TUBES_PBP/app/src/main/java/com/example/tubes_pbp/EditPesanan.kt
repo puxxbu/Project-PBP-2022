@@ -127,7 +127,7 @@ class EditPesanan : AppCompatActivity()  {
             .setContentTitle("Pesanan")
             .setContentText("Pesanan berhasil dibuat!")
             .setStyle(NotificationCompat.BigTextStyle().bigText("Pesanan yang anda tambahkan telah berhasil dibuat" +
-                    "dan telah ditambahkan di daftar pesanan."))
+                    "dan telah ditambahkan di daftar pesanan dan telah ditambahkan di daftar pesanan.dan telah ditambahkan di daftar pesanan.dan telah ditambahkan di daftar pesanan.dan telah ditambahkan di daftar pesanan.dan telah ditambahkan di daftar pesanan."))
             .setContentIntent(pendingIntent)
             .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
             with(NotificationManagerCompat.from(this)){

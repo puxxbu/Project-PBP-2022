@@ -157,7 +157,7 @@ class RegisterActivity : AppCompatActivity() {
                 val moveLogin = Intent(this, LoginActivity::class.java)
 
                 moveLogin.putExtra("register",mBundle)
-//                startActivity(moveLogin)
+                startActivity(moveLogin)
                 sendNotification(nama)
 
                 prefManager = PrefManager(this)
@@ -182,7 +182,7 @@ class RegisterActivity : AppCompatActivity() {
 
         val pendingIntent : PendingIntent = PendingIntent.getActivity(this, 0,intent,0)
 
-        val registerBigPicBitmap = ContextCompat.getDrawable(this, R.drawable.account)?.toBitmap()
+        val registerBigPicBitmap = ContextCompat.getDrawable(this, R.drawable.checklist)?.toBitmap()
 
         val broadcastIntent : Intent = Intent(this, NotificationReceiver::class.java)
         // input data nama user pada binding text pada register layout

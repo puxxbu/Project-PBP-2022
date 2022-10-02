@@ -69,6 +69,7 @@ class LoginActivity : AppCompatActivity() {
 
         val mySnackbar = Snackbar.make(loginLayout,"Registrasi Terlebih Dahulu !",Snackbar.LENGTH_SHORT)
 
+
         btnBackLoginListener()
         createNotificationChannel()
 
@@ -117,41 +118,6 @@ class LoginActivity : AppCompatActivity() {
 
             }
 
-//
-//            if(vUser.isNotEmpty() && vPassword.isNotEmpty()){
-//                val username: String = inputUsername.getEditText()?.getText().toString()
-//                val password: String = inputPassword.getEditText()?.getText().toString()
-//
-//                if (username.isEmpty()){
-//                    inputUsername.setError("Username must be filled with text")
-//                    checkLogin = false
-//                }
-//
-//                if (password.isEmpty()){
-//                    inputPassword.setError("Password must be filled with text")
-//                    checkLogin = false
-//                }
-//
-//                if (username == vUser && password == vPassword) {
-//                    checkLogin = true
-//                } else if(username != vUser && password == vPassword){
-//                    inputUsername.setError("Username tidak sesuai !")
-//                    checkLogin = false
-//                } else if(username == vUser && password != vPassword){
-//                    inputPassword.setError("Password tidak sesuai !")
-//                    checkLogin = false
-//                } else{
-//                    inputUsername.setError("Username tidak sesuai !")
-//                    inputPassword.setError("Password tidak sesuai !")
-//                    checkLogin = false
-//                }
-//                if (!checkLogin) return@OnClickListener
-//                val moveHome = Intent(this, HomeActivity::class.java)
-//                startActivity(moveHome)
-////                setContentView(R.layout.activity_home)
-//            }else{
-//                mySnackbar.show()
-//            }
 
         })
     }
@@ -179,7 +145,7 @@ class LoginActivity : AppCompatActivity() {
 
         val pendingIntent : PendingIntent = PendingIntent.getActivity(this, 0,intent,0)
 
-        val registerBigPicBitmap = ContextCompat.getDrawable(this, R.drawable.account)?.toBitmap()
+        val registerBigPicBitmap = ContextCompat.getDrawable(this, R.drawable.travelshot)?.toBitmap()
 
         val broadcastIntent : Intent = Intent(this, NotificationReceiver::class.java)
         val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)

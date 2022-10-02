@@ -22,6 +22,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.graphics.drawable.toBitmap
+import androidx.databinding.DataBindingUtil
 import com.example.tubes_pbp.*
 import com.example.tubes_pbp.databinding.FragmentAkunBinding
 import com.example.tubes_pbp.databinding.FragmentEditAkunBinding
@@ -51,7 +52,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
     ): View? {
 
 
-        _binding = FragmentAkunBinding.inflate(inflater, container, false)
+        _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_akun,container, false)
 
         var dialog = LogoutAlert()
         val rootView: View = inflater.inflate(R.layout.fragment_akun, container, false)
@@ -60,18 +61,21 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
         usersDb = UsersDB.getDatabase(requireContext())
 
         createNotificationChannel()
-//        sendNotification()
 
-        val nama = prefManager.getUser()?.nama
-        val tglLahir = prefManager.getUser()?.tglLahir
-        val noHP = prefManager.getUser()?.noHP
-        val email = prefManager.getUser()?.email
+        binding.user = prefManager.getUser()
 
-        binding.textNamaUser.setText(nama)
-        binding.tietNamaLengkap.setText(nama)
-        binding.tietTglLahir.setText(tglLahir)
-        binding.tietNoHP.setText(noHP)
-        binding.tietEmail.setText(email)
+
+
+//        val nama = prefManager.getUser()?.nama
+//        val tglLahir = prefManager.getUser()?.tglLahir
+//        val noHP = prefManager.getUser()?.noHP
+//        val email = prefManager.getUser()?.email
+//
+//        binding.textNamaUser.setText(nama)
+//        binding.tietNamaLengkap.setText(nama)
+//        binding.tietTglLahir.setText(tglLahir)
+//        binding.tietNoHP.setText(noHP)
+//        binding.tietEmail.setText(email)
 
         val myCalendar = Calendar.getInstance()
 
@@ -112,11 +116,12 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
                 withContext(Dispatchers.Main){
                     val user = usersDb.usersDao().getUserbyID(id)
                     prefManager.setUser(user)
+
 //                    binding.textNamaUser.setText(nama)
-                    binding.tietNamaLengkap.setText(nama)
-                    binding.tietTglLahir.setText(tglLahir)
-                    binding.tietNoHP.setText(noHP)
-                    binding.tietEmail.setText(email)
+//                    binding.tietNamaLengkap.setText(nama)
+//                    binding.tietTglLahir.setText(tglLahir)
+//                    binding.tietNoHP.setText(noHP)
+//                    binding.tietEmail.setText(email)
                     sendNotification()
                 }
 
@@ -172,7 +177,6 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
 
         val pendingIntent : PendingIntent = PendingIntent.getActivity(getActivity(), 0,intent,0)
 
-//        val registerBigPicBitmap = ContextCompat.getDrawable(requireContext(), R.drawable.account)?.toBitmap()
 
         val broadcastIntent : Intent = Intent(getActivity(), NotificationReceiver::class.java)
         val actionIntent = PendingIntent.getBroadcast(getActivity(), 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -206,8 +210,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
                 with(NotificationManagerCompat.from(requireContext())){
                     notify(notificationId,builder2.build())
                 }
-                var nama = prefManager.getUser()?.nama
-                binding.textNamaUser.setText(nama)
+                binding.user = prefManager.getUser()
             }
 
 
