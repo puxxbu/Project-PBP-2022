@@ -1,161 +1,176 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <RelativeLayout
-        android:id="@+id/bck_user"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#6BA5F2">
-
-        <RelativeLayout
-            android:id="@+id/img_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="#6BA5F2">
-
-            <ImageView
-                android:id="@+id/img_view"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:layout_marginTop="30dp"
-                android:adjustViewBounds="true"
-                android:padding="3dp"
-                android:scaleType="centerInside"
-                android:src="@drawable/account" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/text_namaUser"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/img_user"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="20dp"
-            android:text="UserNama"
-            android:textColor="@color/black"
-            android:textSize="30sp" />
-
-        <Button
-            android:id="@+id/btnLogout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="12dp"
-            android:layout_toRightOf="@id/img_user"
-            android:backgroundTint="#5291E8"
-            android:text="Logout"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
+    <data>
+        <variable
+            name="user"
+            type="com.example.tubes_pbp.entity.room.Users" />
+    </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/bck_user">
+        tools:context=".HomeActivity">
 
-        <LinearLayout
-            android:id="@+id/lin_atas"
+        <RelativeLayout
+            android:id="@+id/bck_user"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="30dp"
-            android:orientation="vertical">
+            android:background="#6BA5F2">
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_namaLengkap"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <RelativeLayout
+                android:id="@+id/img_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="#6BA5F2">
+
+                <ImageView
+                    android:id="@+id/img_view"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="30dp"
+                    android:adjustViewBounds="true"
+                    android:padding="3dp"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/account" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/text_namaUser"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_user"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:text='@{user.nama, default = "nama user" }'
+                android:textColor="@color/black"
+                android:textSize="30sp" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@id/img_user"
+                android:backgroundTint="#5291E8"
+                android:text="Logout"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/bck_user">
+
+            <LinearLayout
+                android:id="@+id/lin_atas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="#EDEDED"
-                android:hint="Nama Lengkap"
-                app:errorEnabled="true">
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="30dp"
+                android:orientation="vertical">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_namaLengkap"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_namaLengkap"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_baseline_account_box_24"
-                    android:inputType="text" />
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="#EDEDED"
+                    android:hint="Nama Lengkap"
+                    app:errorEnabled="true">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_namaLengkap"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_baseline_account_box_24"
+                        android:inputType="text"
+                        android:text='@{user.nama}'/>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_tglLahir"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_tglLahir"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="#EDEDED"
+                    android:hint="Tanggal Lahir"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_tglLahir"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_date_range_16"
+                        android:inputType="text"
+                        android:text='@{user.tglLahir}'/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_noHP"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="#EDEDED"
+                    android:hint="Nomor HP"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_noHP"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_baseline_contact_phone_24"
+                        android:inputType="numberDecimal"
+                        android:text='@{user.noHP}'/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/til_email"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:backgroundTint="#EDEDED"
+                    android:hint="Email"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/tiet_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@drawable/ic_baseline_email_24"
+                        android:inputType="text"
+                        android:text='@{user.email}'/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="224dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="#EDEDED"
-                android:hint="Tanggal Lahir"
-                app:errorEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_tglLahir"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_date_range_16"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_noHP"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="#EDEDED"
-                android:hint="Nomor HP"
-                app:errorEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_noHP"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_baseline_contact_phone_24"
-                    android:inputType="numberDecimal" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_email"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="#EDEDED"
-                android:hint="Email"
-                app:errorEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableRight="@drawable/ic_baseline_email_24"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnEdit"
-            android:layout_width="224dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lin_atas"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:backgroundTint="#044BD9"
-            android:text="update" />
+                android:layout_below="@id/lin_atas"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#044BD9"
+                android:text="update" />
+        </RelativeLayout>
     </RelativeLayout>
-</RelativeLayout>
+
+</layout>

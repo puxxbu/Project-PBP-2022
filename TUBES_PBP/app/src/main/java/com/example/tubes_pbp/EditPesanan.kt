@@ -1,12 +1,23 @@
 package com.example.tubes_pbp
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContextCompat
 import com.example.tubes_pbp.databinding.FragmentAkunBinding
 import com.example.tubes_pbp.entity.room.Constant
 import com.example.tubes_pbp.entity.room.Pesanan
 import com.example.tubes_pbp.entity.room.UsersDB
+import com.example.tubes_pbp.notifications.NotificationReceiver
 import kotlinx.android.synthetic.main.activity_edit_pesanan.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -15,15 +26,18 @@ import kotlinx.coroutines.launch
 class EditPesanan : AppCompatActivity()  {
     private lateinit var usersDb: UsersDB
     private var pesananId : Int = 0
+    private val CHANNEL_ID = "pesanan"
+    private val notificationId = 101
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_pesanan)
         usersDb = UsersDB.getDatabase(this)
 
-        getSupportActionBar()?.setTitle("Edit Pesanan")
+        getSupportActionBar()?.setTitle("Pesanan")
 
         setupView()
+        createNotificationChannel()
         setupListener()
 
     }
@@ -56,6 +70,7 @@ class EditPesanan : AppCompatActivity()  {
                 )
                 finish()
             }
+            sendNotification()
         }
         button_update.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
@@ -81,6 +96,43 @@ class EditPesanan : AppCompatActivity()  {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    private fun createNotificationChannel(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val name = "Pesanan"
+            val descriptionText = "Pesanan berhasil dibuat"
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+            val channel = NotificationChannel(CHANNEL_ID,name,importance).apply {
+                description = descriptionText
+            }
+            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
+    }
+    private fun sendNotification(){
+        val intent = Intent(this, EditPesanan::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
+
+        val broadcastIntent : Intent = Intent(this, NotificationReceiver::class.java)
+        val actionIntent = PendingIntent.getBroadcast(this, 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
+
+
+        Log.d("notif","NOTIF PESANAN ")
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.travelpic)
+            .setContentTitle("Pesanan")
+            .setContentText("Pesanan berhasil dibuat!")
+            .setStyle(NotificationCompat.BigTextStyle().bigText("Pesanan yang anda tambahkan telah berhasil dibuat" +
+                    "dan telah ditambahkan di daftar pesanan dan telah ditambahkan di daftar pesanan.dan telah ditambahkan di daftar pesanan.dan telah ditambahkan di daftar pesanan.dan telah ditambahkan di daftar pesanan.dan telah ditambahkan di daftar pesanan."))
+            .setContentIntent(pendingIntent)
+            .setPriority(NotificationManager.IMPORTANCE_DEFAULT)
+            with(NotificationManagerCompat.from(this)){
+            notify(notificationId, builder.build())
+        }
     }
 
 }
