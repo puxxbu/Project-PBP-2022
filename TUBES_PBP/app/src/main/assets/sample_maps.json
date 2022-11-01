@@ -3,12 +3,45 @@
     {
       "geometry": {
         "location": {
-          "lat": -7.779433,
-          "lng": 110.415782
+          "lat": -8.784466,
+          "lng": 115.159582
         }
       },
-      "name": "Kampus 3 Universitas Atma Jaya Yogyakarta",
-      "vicinity": "Jl. Babarsari No.43, Janti, Caturtunggal, Kec. Depok, Kabupaten Sleman, Daerah Istimewa Yogyakarta 55281"
+      "name": "Four Seasons Resort Bali",
+      "vicinity": "Jimbaran, Kec. Kuta Sel., Kabupaten Badung, Bali 80361"
+    },
+
+    {
+      "geometry": {
+        "location": {
+          "lat": -8.794400,
+          "lng": 115.147570
+        }
+      },
+      "name": "Royal Tulip Springhill Resort Jimbaran",
+      "vicinity": "Jl. Jimbaran Hijau Kelod, Jimbaran, Kec. Kuta Sel., Kabupaten Badung, Bali 80361"
+    },
+
+    {
+      "geometry": {
+        "location": {
+          "lat": -8.807103,
+          "lng": 115.166043
+        }
+      },
+      "name": "Maxone Hotel Bukit Jimbaran",
+      "vicinity": "Jl. Raya Uluwatu, Ungasan, Kec. Kuta Sel., Kabupaten Badung, Bali 80363"
+    },
+
+    {
+      "geometry": {
+        "location": {
+          "lat": -8.804316,
+          "lng": 115.153277
+        }
+      },
+      "name": "Buana Bali Villas & Spa",
+      "vicinity": "54VX+PWX, Jimbaran, Kec. Kuta Sel., Kabupaten Badung, Bali 80361"
     }
   ],
   "status": "OK"
