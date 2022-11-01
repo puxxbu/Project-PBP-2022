@@ -6,14 +6,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
-import android.media.RingtoneManager
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -21,13 +19,15 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.example.tubes_pbp.entity.room.UsersDB
 import com.example.tubes_pbp.notifications.NotificationReceiver
-import com.google.android.material.textfield.TextInputLayout
 import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import com.example.tubes_pbp.maps.*
+
 
 class LoginActivity : AppCompatActivity() {
 
@@ -57,11 +57,13 @@ class LoginActivity : AppCompatActivity() {
         usersDb = UsersDB.getDatabase(this)
 
         val moveHome = Intent(this, HomeActivity::class.java)
+        val moveMap = Intent(this, MapActivity::class.java)
 
         inputUsername = findViewById(R.id.inputLayoutUsername)!!
         inputPassword = findViewById(R.id.inputLayoutPassword)!!
         loginLayout = findViewById(R.id.loginLayout)
         val btnLogin: Button = findViewById(R.id.btnLogin)
+        val btnMap: Button = findViewById(R.id.btnMap)
         inputUsername.getEditText()?.setText("")
         inputPassword.getEditText()?.setText("")
         vUser = ""
@@ -77,6 +79,10 @@ class LoginActivity : AppCompatActivity() {
             getBundle()
             setText()
         }
+
+        btnMap.setOnClickListener(View.OnClickListener {
+            startActivity(moveMap)
+        })
 
         btnLogin.setOnClickListener(View.OnClickListener {
             prefManager.setLoggin(false)

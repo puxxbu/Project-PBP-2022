@@ -56,6 +56,9 @@ dependencies {
     //GSON
     implementation 'com.google.code.gson:gson:2.8.8'
 
+    //maps
+    implementation 'org.osmdroid:osmdroid-android:6.1.11'
+
     // Room
     def room_version = "2.4.3"
     implementation "androidx.room:room-runtime:$room_version"
