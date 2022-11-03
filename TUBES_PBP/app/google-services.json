@@ -1,62 +1,33 @@
 {
   "project_info": {
-    "project_number": "209981043822",
-    "project_id": "tubes-pbp-344de",
-    "storage_bucket": "tubes-pbp-344de.appspot.com"
+    "project_number": "663595402414",
+    "project_id": "tubes-pbp-676a6",
+    "storage_bucket": "tubes-pbp-676a6.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:209981043822:android:7cc3198e472392f473627f",
+        "mobilesdk_app_id": "1:663595402414:android:880feb46d9ba67b6ea193f",
         "android_client_info": {
           "package_name": "com.example.tubes_pbp"
         }
       },
       "oauth_client": [
         {
-          "client_id": "209981043822-jffuijpflgvd1tmc2boo5uor0j2qj35r.apps.googleusercontent.com",
+          "client_id": "663595402414-pmc1dpigtfp6kfga5c6ob1siv1hgav0l.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBS5ubXa41NC4oRtw66XLUEOH2bDZXBh6w"
+          "current_key": "AIzaSyCdA20xSyrwlzk99jjRDOlivwOVFqDv1t8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "209981043822-jffuijpflgvd1tmc2boo5uor0j2qj35r.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:209981043822:android:f564c4fc6081cbc173627f",
-        "android_client_info": {
-          "package_name": "com.fire.gd6_d_0830"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "209981043822-jffuijpflgvd1tmc2boo5uor0j2qj35r.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBS5ubXa41NC4oRtw66XLUEOH2bDZXBh6w"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "209981043822-jffuijpflgvd1tmc2boo5uor0j2qj35r.apps.googleusercontent.com",
+              "client_id": "663595402414-pmc1dpigtfp6kfga5c6ob1siv1hgav0l.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
