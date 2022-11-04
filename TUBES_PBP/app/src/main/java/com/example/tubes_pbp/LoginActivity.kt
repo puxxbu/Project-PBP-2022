@@ -63,7 +63,7 @@ class LoginActivity : AppCompatActivity() {
         inputPassword = findViewById(R.id.inputLayoutPassword)!!
         loginLayout = findViewById(R.id.loginLayout)
         val btnLogin: Button = findViewById(R.id.btnLogin)
-        val btnMap: Button = findViewById(R.id.btnMap)
+//        val btnMap: Button = findViewById(R.id.btnMap)
         inputUsername.getEditText()?.setText("")
         inputPassword.getEditText()?.setText("")
         vUser = ""
@@ -80,9 +80,9 @@ class LoginActivity : AppCompatActivity() {
             setText()
         }
 
-        btnMap.setOnClickListener(View.OnClickListener {
-            startActivity(moveMap)
-        })
+//        btnMap.setOnClickListener(View.OnClickListener {
+//            startActivity(moveMap)
+//        })
 
         btnLogin.setOnClickListener(View.OnClickListener {
             prefManager.setLoggin(false)
