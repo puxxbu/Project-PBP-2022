@@ -3,6 +3,18 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.103" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/activity_camera.xml" value="0.3037974683544304" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/activity_edit_pesanan.xml" value="0.17831813576494426" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/activity_home.xml" value="0.17831813576494426" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/activity_main.xml" value="0.17831813576494426" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/activity_map.xml" value="0.17831813576494426" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/activity_pesanan_adapter.xml" value="0.17831813576494426" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/activity_register.xml" value="0.17831813576494426" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/activity_splash_screen.xml" value="0.17831813576494426" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/fragment_akun.xml" value="0.17831813576494426" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/fragment_beranda.xml" value="0.36666666666666664" />
+        <entry key="..\:/Owen/Tugas/Kuliah/Sem 5/PBP/Tugas Besar per 3nov22/TUBES_PBP/app/src/main/res/layout/fragment_pesanan.xml" value="0.17831813576494426" />
         <entry key="..\:/PBP/Guided-PBP/Guided 3/GD3_D_0606/app/src/main/res/layout/fragment_dosen.xml" value="0.1" />
         <entry key="..\:/PBP/Guided-PBP/Guided 3/GD3_D_0606/app/src/main/res/layout/fragment_mahasiswa.xml" value="0.1" />
         <entry key="..\:/PBP/Project-PBP-2022/TUBES_PBP/app/src/main/res/drawable-v24/ic_add.xml" value="0.188" />

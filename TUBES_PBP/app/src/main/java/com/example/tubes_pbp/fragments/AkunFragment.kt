@@ -24,9 +24,11 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.graphics.drawable.toBitmap
 import androidx.databinding.DataBindingUtil
 import com.example.tubes_pbp.*
+import com.example.tubes_pbp.camera.CameraActivity
 import com.example.tubes_pbp.databinding.FragmentAkunBinding
 import com.example.tubes_pbp.databinding.FragmentEditAkunBinding
 import com.example.tubes_pbp.entity.room.UsersDB
+import com.example.tubes_pbp.maps.MapActivity
 import com.example.tubes_pbp.notifications.NotificationReceiver
 import kotlinx.android.synthetic.main.fragment_akun.view.*
 import kotlinx.coroutines.*
@@ -56,6 +58,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
 
         var dialog = LogoutAlert()
         val rootView: View = inflater.inflate(R.layout.fragment_akun, container, false)
+        val moveCam = Intent(getActivity(), CameraActivity::class.java)
 
         prefManager = PrefManager(requireContext())
         usersDb = UsersDB.getDatabase(requireContext())
@@ -133,6 +136,10 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
 
         binding.btnLogout.setOnClickListener {
             dialog.show(parentFragmentManager, "alertLogout" )
+        }
+
+        binding.btnCamProfile.setOnClickListener {
+            startActivity(moveCam)
         }
 
         return binding.root
