@@ -1,5 +1,6 @@
 package com.example.tubes_pbp.camera
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tubes_pbp.R
@@ -7,6 +8,7 @@ import android.hardware.Camera
 import android.util.Log
 import android.view.View
 import android.widget.FrameLayout
+import android.widget.ImageButton
 
 class CameraActivity : AppCompatActivity() {
     private var mCamera: Camera? = null
@@ -25,6 +27,11 @@ class CameraActivity : AppCompatActivity() {
             mCameraView = CameraView(this, mCamera!!)
             val camera_view = findViewById<View>(R.id.FLCamera) as FrameLayout
             camera_view.addView(mCameraView)
+        }
+        @SuppressLint("MissingInflatedId", "LocalSuppress") val imageClose =
+            findViewById<View>(R.id.imgClose) as ImageButton
+            imageClose.setOnClickListener{
+                view: View? -> System.exit(0)
         }
     }
 }
