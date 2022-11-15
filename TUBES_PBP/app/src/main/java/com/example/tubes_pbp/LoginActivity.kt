@@ -85,6 +85,7 @@ class LoginActivity : AppCompatActivity() {
 //        })
 
         btnLogin.setOnClickListener(View.OnClickListener {
+            startActivity(moveHome)
             prefManager.setLoggin(false)
 
             val username: String = inputUsername.getEditText()?.getText().toString()
@@ -92,37 +93,37 @@ class LoginActivity : AppCompatActivity() {
 
             if (username.isEmpty()){
                 inputUsername.setError("Username must be filled with text")
-                prefManager.setLoggin(false)
+                prefManager.setLoggin(true)
             }
 
             if (password.isEmpty()){
                 inputPassword.setError("Password must be filled with text")
-                prefManager.setLoggin(false)
+                prefManager.setLoggin(true)
             }
 
-            CoroutineScope(Dispatchers.IO).launch {
-                val user = usersDb.usersDao().getUser(username,password)
-
-                if (user == null){
-                    Log.d("LoginActivity","USER IS NULL")
-                    withContext(Dispatchers.Main){
-                        inputUsername.setError("Username tidak sesuai !")
-                        inputPassword.setError("Password tidak sesuai !")
-                        prefManager.setLoggin(false)
-                        mySnackbar.show()
-                    }
-                }else{
-                    Log.d("LoginActivity","USER FOUND")
-                    withContext(Dispatchers.Main){
-                        startActivity(moveHome)
-                        prefManager.setLoggin(true)
-                        prefManager.setUser(user)
-                        sendNotification()
-                    }
-
-                }
-
-            }
+//            CoroutineScope(Dispatchers.IO).launch {
+//                val user = usersDb.usersDao().getUser(username,password)
+//
+//                if (user == null){
+//                    Log.d("LoginActivity","USER IS NULL")
+//                    withContext(Dispatchers.Main){
+//                        inputUsername.setError("Username tidak sesuai !")
+//                        inputPassword.setError("Password tidak sesuai !")
+//                        prefManager.setLoggin(false)
+//                        mySnackbar.show()
+//                    }
+//                }else{
+//                    Log.d("LoginActivity","USER FOUND")
+//                    withContext(Dispatchers.Main){
+//                        startActivity(moveHome)
+//                        prefManager.setLoggin(true)
+//                        prefManager.setUser(user)
+//                        sendNotification()
+//                    }
+//
+//                }
+//
+//            }
 
 
         })

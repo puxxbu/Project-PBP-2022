@@ -164,10 +164,11 @@ class RegisterActivity : AppCompatActivity() {
                 prefManager.setUsername(username)
 
                 val user = Users(0,username,password,nama,email,noHp,tglLahir)
-                CoroutineScope(Dispatchers.IO).launch{
-                     usersDb.usersDao().addUsers(user)
-                     finish()
-                }
+                 // ROOM DELETE
+//                CoroutineScope(Dispatchers.IO).launch{
+//                     usersDb.usersDao().addUsers(user)
+//                     finish()
+//                }
                  Toast.makeText(this, "Masukkan berhasil!", Toast.LENGTH_SHORT).show()
 
              }

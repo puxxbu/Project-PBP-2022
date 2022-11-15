@@ -107,29 +107,25 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
         }
 
         binding.btnEdit.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                val id = prefManager.getUser()?.id
-                val nama = binding.tilNamaLengkap.getEditText()?.getText().toString()
-                val tglLahir = binding.tilTglLahir.getEditText()?.getText().toString()
-                val noHP = binding.tilNoHP.getEditText()?.getText().toString()
-                val email = binding.tilEmail.getEditText()?.getText().toString()
-                usersDb.usersDao().updateUser(id,nama,tglLahir,noHP,email)
-
-
-                withContext(Dispatchers.Main){
-                    val user = usersDb.usersDao().getUserbyID(id)
-                    prefManager.setUser(user)
-
-//                    binding.textNamaUser.setText(nama)
-//                    binding.tietNamaLengkap.setText(nama)
-//                    binding.tietTglLahir.setText(tglLahir)
-//                    binding.tietNoHP.setText(noHP)
-//                    binding.tietEmail.setText(email)
-                    sendNotification()
-                }
-
-
-            }
+//            CoroutineScope(Dispatchers.IO).launch {
+//                val id = prefManager.getUser()?.id
+//                val nama = binding.tilNamaLengkap.getEditText()?.getText().toString()
+//                val tglLahir = binding.tilTglLahir.getEditText()?.getText().toString()
+//                val noHP = binding.tilNoHP.getEditText()?.getText().toString()
+//                val email = binding.tilEmail.getEditText()?.getText().toString()
+//                usersDb.usersDao().updateUser(id,nama,tglLahir,noHP,email)
+//
+//
+//                withContext(Dispatchers.Main){
+//                    val user = usersDb.usersDao().getUserbyID(id)
+//                    prefManager.setUser(user)
+//
+//
+//                    sendNotification()
+//                }
+//
+//
+//            }
         }
 
 
@@ -200,28 +196,28 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
 
 
 
-        CoroutineScope(Dispatchers.IO).launch {
-            withContext(Dispatchers.Main){
-                while (progress != max){
-                    delay(1000)
-                    progress += 1
-                    var builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
-                        .setSmallIcon(R.drawable.ic_beranda_24)
-                        .setContentTitle("Uploading!")
-                        .setContentText("${progress}/${max}")
-                        .setProgress(max, progress,false)
-                    with(NotificationManagerCompat.from(requireContext())){
-                        notify(notificationId,builder.build())
-                    }
-                }
-                with(NotificationManagerCompat.from(requireContext())){
-                    notify(notificationId,builder2.build())
-                }
-                binding.user = prefManager.getUser()
-            }
-
-
-        }
+//        CoroutineScope(Dispatchers.IO).launch {
+//            withContext(Dispatchers.Main){
+//                while (progress != max){
+//                    delay(1000)
+//                    progress += 1
+//                    var builder = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
+//                        .setSmallIcon(R.drawable.ic_beranda_24)
+//                        .setContentTitle("Uploading!")
+//                        .setContentText("${progress}/${max}")
+//                        .setProgress(max, progress,false)
+//                    with(NotificationManagerCompat.from(requireContext())){
+//                        notify(notificationId,builder.build())
+//                    }
+//                }
+//                with(NotificationManagerCompat.from(requireContext())){
+//                    notify(notificationId,builder2.build())
+//                }
+//                binding.user = prefManager.getUser()
+//            }
+//
+//
+//        }
 
 
 
