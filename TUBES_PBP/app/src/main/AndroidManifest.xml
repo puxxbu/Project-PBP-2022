@@ -19,21 +19,21 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".FormEditBookmarkActivity"
+            android:name=".webapi.FormEditBookmarkActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".FormAddBookmarkActivity"
+            android:name=".webapi.FormAddBookmarkActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".DetailBookmarkActivity"
+            android:name=".webapi.DetailBookmarkActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

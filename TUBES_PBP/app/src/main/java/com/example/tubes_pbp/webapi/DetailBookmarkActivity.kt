@@ -1,4 +1,4 @@
-package com.example.tubes_pbp
+package com.example.tubes_pbp.webapi
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -66,8 +66,8 @@ class DetailBookmarkActivity : AppCompatActivity() {
     }
     private fun doDeleteData(nama:String) {
         RClient.instances.deleteData(nama).enqueue(object : Callback<ResponseCreate>{
-            override fun onResponse( call: Call<ResponseCreate>,
-                                     response: Response<ResponseCreate>
+            override fun onResponse(call: Call<ResponseCreate>,
+                                    response: Response<ResponseCreate>
             ) {
                 if (response.isSuccessful) {
                     Toast.makeText(applicationContext, "Data berhasil dihapus", Toast.LENGTH_LONG).show()

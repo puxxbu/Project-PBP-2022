@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FormEditBookmarkActivity">
+    tools:context=".webapi.FormEditBookmarkActivity">
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/txt_edit_nama"
         android:layout_width="match_parent"

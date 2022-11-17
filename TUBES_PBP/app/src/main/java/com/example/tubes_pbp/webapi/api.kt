@@ -1,4 +1,4 @@
-package com.example.tubes_pbp
+package com.example.tubes_pbp.webapi
 
 import retrofit2.Call
 import retrofit2.http.*

@@ -1,4 +1,4 @@
-package com.example.tubes_pbp
+package com.example.tubes_pbp.webapi
 
 import com.google.gson.annotations.SerializedName
 

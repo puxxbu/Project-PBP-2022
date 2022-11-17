@@ -1,4 +1,4 @@
-package com.example.tubes_pbp
+package com.example.tubes_pbp.webapi
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,10 +7,6 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tubes_pbp.BookmarkAdapter
-import com.example.tubes_pbp.BookmarkData
-import com.example.tubes_pbp.RClient
-import com.example.tubes_pbp.ResponseDataBookmark
 import com.example.tubes_pbp.databinding.FragmentDataBookmarkBinding
 import retrofit2.Call
 import retrofit2.Callback
