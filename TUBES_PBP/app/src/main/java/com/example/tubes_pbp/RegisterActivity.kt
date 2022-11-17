@@ -1,5 +1,6 @@
 package com.example.tubes_pbp
 
+import android.annotation.SuppressLint
 import android.app.*
 import android.content.ContentValues.TAG
 import android.content.Context
@@ -10,25 +11,42 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isEmpty
+import com.android.volley.AuthFailureError
+import com.android.volley.RequestQueue
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.example.tubes_pbp.api.RClient
+import com.example.tubes_pbp.api.UserApi
+import com.example.tubes_pbp.api.UserData
+import com.example.tubes_pbp.api.response.ResponseCreate
+import com.example.tubes_pbp.api.response.ResponseDataUser
 import com.example.tubes_pbp.databinding.ActivityMainBinding
 import com.example.tubes_pbp.databinding.ActivityRegisterBinding
+import com.example.tubes_pbp.entity.User
 import com.example.tubes_pbp.entity.room.Users
 import com.example.tubes_pbp.entity.room.UsersDB
 import com.example.tubes_pbp.notifications.NotificationReceiver
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_register.*
 import kotlinx.android.synthetic.main.activity_register.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
+import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -39,10 +57,17 @@ class RegisterActivity : AppCompatActivity() {
     private var binding: ActivityRegisterBinding? = null
     private val CHANNEL_ID = "register_notification"
     private val notificationId = 101
+    private var queue : RequestQueue? = null
+    private val listUser = ArrayList<UserData>()
+    @SuppressLint("RestrictedApi")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+//        queue = Volley.newRequestQueue(this)
+
 
         var binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -52,6 +77,7 @@ class RegisterActivity : AppCompatActivity() {
         usersDb = UsersDB.getDatabase(this)
 
         createNotificationChannel()
+        getDetailData()
 
         val myCalendar = Calendar.getInstance()
 
@@ -111,6 +137,9 @@ class RegisterActivity : AppCompatActivity() {
              val email: String = binding.tilEmail.getEditText()?.getText().toString()
              val tglLahir: String = binding.tilTglLahir.getEditText()?.getText().toString()
 
+             val user = User(nama,username,password,email,noHp,tglLahir)
+
+
              val mBundle = Bundle()
 
              mBundle.putString("username", username)
@@ -148,6 +177,9 @@ class RegisterActivity : AppCompatActivity() {
 
              if(!nama.isEmpty() && !tglLahir.isEmpty() && !noHp.isEmpty() && !email.isEmpty() && !username.isEmpty() && !password.isEmpty() ){
                  checkRegister = true
+//                 createUser(user)
+                 saveData(user)
+                 getDetailData()
              }
 
              if(!checkRegister){
@@ -174,6 +206,112 @@ class RegisterActivity : AppCompatActivity() {
              }
 
              })
+    }
+
+//    private fun createUser(user: User){
+//        Log.d(TAG, user.nama)
+//        val stringRequest : StringRequest =
+//            object : StringRequest(Method.POST, UserApi.ADD_URL, Response.Listener { response ->
+//                val gson = Gson()
+//                var user = gson.fromJson(response, User::class.java)
+//
+//                if (user != null)
+//                    Toast.makeText(this@RegisterActivity, "Data Berhasil Ditambahkan",Toast.LENGTH_LONG).show()
+//
+//
+//            }, Response.ErrorListener { error ->
+//                try {
+//                    val responseBody = String(error.networkResponse.data, StandardCharsets.UTF_8)
+//                    val errors = JSONObject(responseBody)
+//                    Log.d(TAG, errors.getString("message"))
+//                    Toast.makeText(
+//                        this@RegisterActivity,
+//                        errors.getString("message"),
+//                        Toast.LENGTH_LONG
+//
+//                    ).show()
+//                }catch (e: Exception) {
+//                    e.message?.let { Log.d(TAG, it) }
+//                    Toast.makeText(this@RegisterActivity, e.message, Toast.LENGTH_LONG).show()
+//                }
+//            }){
+//                @Throws(AuthFailureError::class)
+//                override fun getHeaders(): Map<String, String> {
+//                    val headers = HashMap<String, String>()
+//                    headers["Accept"] = "application/json"
+//                    print("headers")
+//                    return headers
+//                }
+//
+//                @Throws(AuthFailureError::class)
+//                override fun getBody(): ByteArray {
+//                    val gson = Gson()
+//                    val requestBody = gson.toJson(user)
+//                    print("body")
+//                    return requestBody.toByteArray(StandardCharsets.UTF_8)
+//                }
+//
+//                override fun getBodyContentType(): String {
+//                    return "application/json"
+//                }
+//            }
+//
+//        queue!!.add(stringRequest)
+//
+//    }
+
+    fun saveData(user: User){
+        with(binding) {
+            val username =  user.username
+            val password: String =   user.password
+            val nama: String = user.nama
+            val noHP: String = user.noHP
+            val email: String = user.email
+            val tglLahir: String =user.tglLahir
+
+            Log.d(TAG,username)
+
+
+            RClient.instances.createData(nama,username,password,email,noHP,tglLahir).enqueue(object :
+                Callback<ResponseCreate> {
+                override fun onResponse(
+                    call: Call<ResponseCreate>,
+                    response: retrofit2.Response<ResponseCreate>
+                ) {
+                    if(response.isSuccessful){
+
+                        Toast.makeText(applicationContext,"${response.body()?.pesan}",
+                            Toast.LENGTH_LONG).show()
+                        finish()
+                    }else {
+                        val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+
+                        Toast.makeText(applicationContext,"Maaf sudah ada datanya", Toast.LENGTH_LONG).show()
+                    }
+                }
+                override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {
+                }
+            })
+        }
+    }
+
+    fun getDetailData() {
+        RClient.instances.getData().enqueue(object : Callback<ResponseDataUser> {
+            override fun onResponse(
+                call: Call<ResponseDataUser>,
+                response: retrofit2.Response<ResponseDataUser>
+            ) {
+                if(response.isSuccessful){
+                    response.body()?.let {
+                        listUser.addAll(it.data) }
+                    Log.d(TAG, "BERHASIL")
+                    Log.d(TAG, listUser.toString())
+                }
+            }
+            override fun onFailure(call: Call<ResponseDataUser>, t: Throwable) {
+                Log.d(TAG, "GAGAL")
+            }
+        })
     }
 
     private fun sendNotification(nama :String) {
