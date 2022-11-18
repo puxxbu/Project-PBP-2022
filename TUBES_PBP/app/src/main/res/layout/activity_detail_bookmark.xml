@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="5dp">
+        android:layout_marginHorizontal="5dp"
+        style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox">
+
         <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
@@ -38,11 +40,13 @@
         android:layout_height="2dp"
         android:id="@+id/view_nama"
         android:background="?android:attr/listDivider"/>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
-        android:layout_marginHorizontal="5dp">
+        android:layout_marginHorizontal="5dp"
+        style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox">
         <TextView
             android:layout_width="150dp"
             android:layout_height="wrap_content"
@@ -73,7 +77,7 @@
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
+        android:layout_marginVertical="15dp"
         android:layout_marginHorizontal="5dp">
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_hapus"
@@ -81,19 +85,19 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:text="Hapus"
+            android:text="Delete"
             android:textAllCaps="false"
             app:icon="@drawable/ic_baseline_trash"
-            android:backgroundTint="@color/teal_700"
-            app:cornerRadius="10dp"/>
+            android:backgroundTint="#E61919"
+            app:cornerRadius="5dp"/>
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_edit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/purple_200"
-            android:text="Edit"
+            android:backgroundTint="#0D730D"
+            android:text="Update"
             android:textAllCaps="false"
-            app:cornerRadius="10dp"
+            app:cornerRadius="5dp"
             app:icon="@drawable/ic_baseline_edit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
