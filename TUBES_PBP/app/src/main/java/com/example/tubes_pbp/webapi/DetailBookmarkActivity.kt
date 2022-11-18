@@ -1,10 +1,12 @@
 package com.example.tubes_pbp.webapi
 
+import android.content.ContentValues.TAG
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import com.example.tubes_pbp.databinding.ActivityDetailBookmarkBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -19,18 +21,23 @@ class DetailBookmarkActivity : AppCompatActivity() {
         binding = ActivityDetailBookmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
         b = intent.extras
-        val nama = b?.getString("nama")
-        nama?.let { getDataDetail(it) }
-        binding.btnHapus.setOnClickListener { nama?.let { it1 -> deleteData(it1) }
+        val id = b?.getInt("id")
+        if (id != null) {
+            Log.d(TAG, id.toString() + "TESSSS")
+            getDataDetail(id)
+        }
+
+        id?.let { getDataDetail(it) }
+        binding.btnHapus.setOnClickListener { id?.let { it1 -> deleteData(it1) }
         }
         binding.btnEdit.setOnClickListener { startActivity(
             Intent(this,
                 FormEditBookmarkActivity::class.java).apply {
-                putExtra("nama",nama)
+                putExtra("id",id)
             })
         }
     }
-    fun getDataDetail(nama:String){ RClient.instances.getData(nama).enqueue(object :
+    fun getDataDetail(id:Int){ RClient.instances.getData(id.toString()).enqueue(object :
         Callback<ResponseDataBookmark> {
         override fun onResponse(
             call: Call<ResponseDataBookmark>,
@@ -39,13 +46,16 @@ class DetailBookmarkActivity : AppCompatActivity() {
             if(response.isSuccessful){
                 response.body()?.let {
                     listBookmark.addAll(it.data) }
+                Log.d(TAG,  "getDataDetail")
                 with(binding) {
+                    Log.d(TAG, listBookmark[0].nama + "TESSSS")
                     tvNama.text = listBookmark[0].nama
                     tvAlamat.text = listBookmark[0].alamat
                 }
             }
         }
         override fun onFailure(call: Call<ResponseDataBookmark>, t: Throwable) {
+            t.message?.let { Log.d("failure", it) }
         }
     })
     }
@@ -53,19 +63,19 @@ class DetailBookmarkActivity : AppCompatActivity() {
         super.onRestart()
         this.recreate()
     }
-    fun deleteData(nama:String){
+    fun deleteData(idData:Int){
         val builder = AlertDialog.Builder(this@DetailBookmarkActivity)
         builder.setMessage("Anda Yakin mau hapus?? Saya ngga yakin loh.")
             .setCancelable(false)
-            .setPositiveButton("Ya, Hapus Aja!"){dialog, id->doDeleteData(nama)
+            .setPositiveButton("Ya, Hapus Aja!"){dialog, id->doDeleteData(idData)
             }
             .setNegativeButton("Tidak, Masih sayang dataku"){dialog,id -> dialog.dismiss()
             }
         val alert = builder.create()
         alert.show()
     }
-    private fun doDeleteData(nama:String) {
-        RClient.instances.deleteData(nama).enqueue(object : Callback<ResponseCreate>{
+    private fun doDeleteData(id:Int) {
+        RClient.instances.deleteData(id).enqueue(object : Callback<ResponseCreate>{
             override fun onResponse(call: Call<ResponseCreate>,
                                     response: Response<ResponseCreate>
             ) {

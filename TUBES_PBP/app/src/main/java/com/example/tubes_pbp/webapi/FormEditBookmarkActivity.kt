@@ -25,8 +25,8 @@ class FormEditBookmarkActivity : AppCompatActivity() {
         supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Form Edit Bookmark"
         b = intent.extras
-        val nama = b?.getString("nama")
-        nama?.let { getDetailData(it) }
+        val id = b?.getInt("id")
+        id?.let { getDetailData(it) }
         binding.btnUpdate.setOnClickListener {
             with(binding) {
                 val nama = txtEditNama.text.toString()
@@ -49,8 +49,8 @@ class FormEditBookmarkActivity : AppCompatActivity() {
             }
         }
     }
-    fun getDetailData(nama:String) {
-        RClient.instances.getData(nama).enqueue(object :
+    fun getDetailData(id:Int) {
+        RClient.instances.getData(id.toString()).enqueue(object :
             Callback<ResponseDataBookmark> {
             override fun onResponse(
                 call: Call<ResponseDataBookmark>,

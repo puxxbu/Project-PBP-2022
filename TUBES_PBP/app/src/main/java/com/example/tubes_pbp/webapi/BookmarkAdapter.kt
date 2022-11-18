@@ -1,7 +1,9 @@
 package com.example.tubes_pbp.webapi
 
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -17,12 +19,14 @@ class BookmarkAdapter (
         private val binding = item
         fun bind(bookmarkData: BookmarkData){
             with(binding) {
+                val idData = bookmarkData.id
+
                 txtNama.text = bookmarkData.nama
                 txtAlamat.text = bookmarkData.alamat
                 cvData.setOnClickListener {
                     var i = Intent(context,
                         DetailBookmarkActivity::class.java).apply {
-                        putExtra("nama",bookmarkData.nama)
+                        putExtra("id",bookmarkData.id)
                     }
                     context.startActivity(i)
                 }

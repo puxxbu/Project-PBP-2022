@@ -36,9 +36,9 @@ class DataBookmarkFragment : Fragment() {
         binding.rvData.setHasFixedSize(true)
         binding.rvData.layoutManager= LinearLayoutManager(context)
         val bundle = arguments
-        val cari = bundle?.getString(/* key = */ "cari")
+        val cari = bundle?.getInt(/* key = */ "cari")
         binding.progressBar.visibility
-        RClient.instances.getData(cari).enqueue(object : Callback<ResponseDataBookmark> {
+        RClient.instances.getAllData().enqueue(object : Callback<ResponseDataBookmark> {
             override fun onResponse(
                 call: Call<ResponseDataBookmark>,
                 response: Response<ResponseDataBookmark>

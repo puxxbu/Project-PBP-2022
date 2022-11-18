@@ -58,22 +58,34 @@ package com.example.tubes_pbp.fragments
 
 // UNTUK MAIN ACTIVITY BOOKMARKNYA
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tubes_pbp.R
 import com.example.tubes_pbp.databinding.FragmentBookmarkBinding
+import com.example.tubes_pbp.webapi.BookmarkAdapter
+import com.example.tubes_pbp.webapi.BookmarkData
+import com.example.tubes_pbp.webapi.RClient
+import com.example.tubes_pbp.webapi.ResponseDataBookmark
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
 //    private lateinit var binding : ActivityMainBinding
 
     private var _binding: FragmentBookmarkBinding? = null
     private val binding get() = _binding!!
+    private val listBookmark = ArrayList<BookmarkData>()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -84,10 +96,52 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
             container, false
         )
 
+        getDataMahasiswa()
+
+        binding.txtCari.setOnKeyListener(View.OnKeyListener{ _, keyCode, event->
+            if(keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP)
+            {
+                getDataMahasiswa()
+                return@OnKeyListener true
+            }
+            false
+        })
+
 
         return binding.root
-//        getDataMahasiswa()
+
+        getDataMahasiswa()
     }
+    private fun getDataMahasiswa() {
+        binding.rvData.setHasFixedSize(true)
+        binding.rvData.layoutManager= LinearLayoutManager(context)
+        val bundle = arguments
+        val cari =  binding.txtCari.text.toString()
+        binding.progressBar.visibility
+        RClient.instances.getAllData().enqueue(object :
+            Callback<ResponseDataBookmark> {
+            override fun onResponse(
+                call: Call<ResponseDataBookmark>,
+                response: Response<ResponseDataBookmark>
+            ){
+                if (response.isSuccessful){
+                    listBookmark.clear()
+                    response.body()?.let { listBookmark.addAll(it.data) }
+                    val adapter = BookmarkAdapter(listBookmark, requireContext())
+                    binding.rvData.adapter = adapter
+                    adapter.notifyDataSetChanged()
+                    binding.progressBar.isVisible = false
+                }
+            }
+            override fun onFailure(call: Call<ResponseDataBookmark>, t: Throwable) {
+                Log.d(TAG, "GAGAL")
+
+            }
+        }
+        )
+    }
+
+
 
 }
 //    override fun onCreate(savedInstanceState: Bundle?) {
