@@ -72,10 +72,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tubes_pbp.R
 import com.example.tubes_pbp.databinding.FragmentBookmarkBinding
-import com.example.tubes_pbp.webapi.BookmarkAdapter
-import com.example.tubes_pbp.webapi.BookmarkData
-import com.example.tubes_pbp.webapi.RClient
-import com.example.tubes_pbp.webapi.ResponseDataBookmark
+import com.example.tubes_pbp.webapi.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -86,6 +83,12 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
     private var _binding: FragmentBookmarkBinding? = null
     private val binding get() = _binding!!
     private val listBookmark = ArrayList<BookmarkData>()
+
+    override fun onStart() {
+        super.onStart()
+        getDataMahasiswa()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -96,6 +99,7 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
             container, false
         )
 
+        Log.d(TAG, "RELOAD")
         getDataMahasiswa()
 
         binding.txtCari.setOnKeyListener(View.OnKeyListener{ _, keyCode, event->
@@ -110,7 +114,7 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
 
         return binding.root
 
-        getDataMahasiswa()
+
     }
     private fun getDataMahasiswa() {
         binding.rvData.setHasFixedSize(true)
@@ -118,7 +122,7 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
         val bundle = arguments
         val cari =  binding.txtCari.text.toString()
         binding.progressBar.visibility
-        RClient.instances.getAllData().enqueue(object :
+        RClient.instances.getData(cari).enqueue(object :
             Callback<ResponseDataBookmark> {
             override fun onResponse(
                 call: Call<ResponseDataBookmark>,
@@ -140,6 +144,9 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
         }
         )
     }
+
+
+
 
 
 

@@ -7,7 +7,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tubes_pbp.R
 import com.example.tubes_pbp.databinding.ActivityDetailBookmarkBinding
+import com.example.tubes_pbp.fragments.BookmarkFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -16,6 +20,8 @@ class DetailBookmarkActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailBookmarkBinding
     private var b:Bundle? = null
     private val listBookmark = ArrayList<BookmarkData>()
+    val bookmark = ArrayList<BookmarkData>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBookmarkBinding.inflate(layoutInflater)
@@ -45,12 +51,13 @@ class DetailBookmarkActivity : AppCompatActivity() {
         ) {
             if(response.isSuccessful){
                 response.body()?.let {
-                    listBookmark.addAll(it.data) }
+                    listBookmark.addAll(it.data)
+                     bookmark.add(listBookmark.find { it.id == id }!!)
+                }
                 Log.d(TAG,  "getDataDetail")
                 with(binding) {
-                    Log.d(TAG, listBookmark[0].nama + "TESSSS")
-                    tvNama.text = listBookmark[0].nama
-                    tvAlamat.text = listBookmark[0].alamat
+                    tvNama.text = bookmark[0].nama
+                    tvAlamat.text = bookmark[0].alamat
                 }
             }
         }
@@ -88,4 +95,8 @@ class DetailBookmarkActivity : AppCompatActivity() {
             }
         })
     }
+
+
+
+
 }

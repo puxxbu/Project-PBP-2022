@@ -32,7 +32,7 @@ class FormEditBookmarkActivity : AppCompatActivity() {
                 val nama = txtEditNama.text.toString()
                 val alamat = txtEditAlamat.text.toString()
 
-                RClient.instances.updateData(nama,alamat).enqueue(object :
+                RClient.instances.updateData(id,nama,alamat).enqueue(object :
                     Callback<ResponseCreate> {
                     override fun onResponse(
                         call: Call<ResponseCreate>,

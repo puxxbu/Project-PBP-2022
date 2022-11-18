@@ -20,9 +20,10 @@ interface api {
     fun deleteData(@Path("id")id:
                    Int?):Call<ResponseCreate>
     @FormUrlEncoded
-    @PUT("bookmarks/{nama}")
+    @PUT("bookmarks/{id}")
     fun updateData(
-        @Path("nama") nama:String?,
+        @Path("id") id:Int?,
+        @Field("nama") nama:String?,
         @Field("alamat") alamat:String?,
     ):Call<ResponseCreate>
 }
