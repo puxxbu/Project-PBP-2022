@@ -33,7 +33,7 @@ class FormAddBookmarkActivity : AppCompatActivity() {
                     response: Response<ResponseCreate>
                 ) {
                     if(response.isSuccessful){
-                        Toast.makeText(applicationContext,"${response.body()?.pesan}", Toast.LENGTH_LONG).show()
+                        Toast.makeText(applicationContext,"Data Berhasil ditambahkan !", Toast.LENGTH_LONG).show()
                         finish()
                     }else {
                         val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())

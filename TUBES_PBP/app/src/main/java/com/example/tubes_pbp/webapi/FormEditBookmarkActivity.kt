@@ -22,8 +22,9 @@ class FormEditBookmarkActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFormEditBookmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Form Edit Bookmark"
+//        supportActionBar?.setDefaultDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.title = "Form Edit Bookmark"
+        supportActionBar?.hide()
         b = intent.extras
         val id = b?.getInt("id")
         id?.let { getDetailData(it) }

@@ -111,6 +111,12 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
             false
         })
 
+        binding.btnAdd.setOnClickListener {
+            var i = Intent(context,
+                FormAddBookmarkActivity::class.java)
+            context?.startActivity(i)
+        }
+
 
         return binding.root
 

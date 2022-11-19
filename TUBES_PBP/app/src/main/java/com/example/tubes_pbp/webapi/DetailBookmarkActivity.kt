@@ -26,6 +26,7 @@ class DetailBookmarkActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailBookmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
         b = intent.extras
         val id = b?.getInt("id")
         if (id != null) {
