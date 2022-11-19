@@ -3,11 +3,13 @@ package com.example.tubes_pbp
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -15,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.example.tubes_pbp.entity.room.UsersDB
@@ -22,11 +25,15 @@ import com.example.tubes_pbp.notifications.NotificationReceiver
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import com.example.tubes_pbp.maps.*
+import com.example.tubes_pbp.webapi.RClient
+import com.example.tubes_pbp.webapi.userApi.ResponseDataUser
+import com.example.tubes_pbp.webapi.userApi.UserData
+import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import kotlin.math.log
 
 
 class LoginActivity : AppCompatActivity() {
@@ -45,6 +52,9 @@ class LoginActivity : AppCompatActivity() {
     lateinit var vUser: String
     lateinit var vPassword: String
     private var checkLogin = false
+
+    private var listUser = ArrayList<UserData>()
+    private val filterUser = ArrayList<UserData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -69,7 +79,7 @@ class LoginActivity : AppCompatActivity() {
         vUser = ""
         vPassword = ""
 
-        val mySnackbar = Snackbar.make(loginLayout,"Registrasi Terlebih Dahulu !",Snackbar.LENGTH_SHORT)
+        val mySnackbar = Snackbar.make(loginLayout,"Login Invalid !",Snackbar.LENGTH_SHORT)
 
 
         btnBackLoginListener()
@@ -85,7 +95,7 @@ class LoginActivity : AppCompatActivity() {
 //        })
 
         btnLogin.setOnClickListener(View.OnClickListener {
-            startActivity(moveHome)
+
             prefManager.setLoggin(false)
 
             val username: String = inputUsername.getEditText()?.getText().toString()
@@ -93,13 +103,26 @@ class LoginActivity : AppCompatActivity() {
 
             if (username.isEmpty()){
                 inputUsername.setError("Username must be filled with text")
-                prefManager.setLoggin(true)
+                prefManager.setLoggin(false)
             }
+
 
             if (password.isEmpty()){
                 inputPassword.setError("Password must be filled with text")
-                prefManager.setLoggin(true)
+                prefManager.setLoggin(false)
             }
+
+            getAllDataUser()
+
+
+
+
+
+
+
+
+
+
 
 //            CoroutineScope(Dispatchers.IO).launch {
 //                val user = usersDb.usersDao().getUser(username,password)
@@ -194,5 +217,43 @@ class LoginActivity : AppCompatActivity() {
     fun setText(){
         inputUsername.getEditText()?.setText(vUser)
         inputPassword.getEditText()?.setText(vPassword)
+    }
+
+    fun getAllDataUser(): ArrayList<UserData> {
+        RClient.instances.getAllDataUser().enqueue(object :
+            Callback<ResponseDataUser> {
+            override fun onResponse(
+                call: Call<ResponseDataUser>,
+                response: Response<ResponseDataUser>
+            ){
+                if (response.isSuccessful){
+                    listUser.clear()
+                    response.body()?.let {
+                        listUser.addAll(it.data)
+                        listUser.find { it.username == inputUsername.getEditText()?.getText().toString() && it.password == inputPassword.getEditText()?.getText().toString() }
+                            ?.let { it1 -> filterUser.add(it1) }
+
+                        Log.d(TAG, listUser.toString() + " LIST USER")
+
+                        if (filterUser.isEmpty()){
+                            Log.d(TAG,filterUser.toString() + " LIST USER EMPTY")
+                            prefManager.setLoggin(false)
+                            Snackbar.make(loginLayout,"Login Invalid !",Snackbar.LENGTH_SHORT).show()
+                        }else{
+                            Log.d(TAG,filterUser.toString() + " LIST USER WONTEN")
+                            prefManager.setLoggin(true)
+                            prefManager.setUserID(filterUser[0].id)
+                            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                        }
+
+
+                    }
+                }
+            }
+            override fun onFailure(call: Call<ResponseDataUser>, t: Throwable) {
+            }
+        })
+
+        return listUser
     }
 }

@@ -21,6 +21,8 @@ import com.example.tubes_pbp.databinding.ActivityRegisterBinding
 import com.example.tubes_pbp.entity.room.Users
 import com.example.tubes_pbp.entity.room.UsersDB
 import com.example.tubes_pbp.notifications.NotificationReceiver
+import com.example.tubes_pbp.webapi.RClient
+import com.example.tubes_pbp.webapi.ResponseCreate
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import kotlinx.android.synthetic.main.activity_register.*
@@ -29,6 +31,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import org.json.JSONObject
+import retrofit2.Call
+import retrofit2.Callback
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -163,7 +168,10 @@ class RegisterActivity : AppCompatActivity() {
                 prefManager = PrefManager(this)
                 prefManager.setUsername(username)
 
+
                 val user = Users(0,username,password,nama,email,noHp,tglLahir)
+                 saveData(user)
+
                  // ROOM DELETE
 //                CoroutineScope(Dispatchers.IO).launch{
 //                     usersDb.usersDao().addUsers(user)
@@ -226,6 +234,43 @@ class RegisterActivity : AppCompatActivity() {
         val sdf = SimpleDateFormat(myFormat, Locale.UK)
         binding.tietTglLahir.setText(sdf.format(myCalendar.time))
     }
+
+    fun saveData(user: Users){
+        with(binding) {
+            val username =  user.username
+            val password: String =   user.password
+            val nama: String = user.nama
+            val noHP: String = user.noHP
+            val email: String = user.email
+            val tglLahir: String =user.tglLahir
+
+            Log.d(TAG,username)
+
+
+            RClient.instances.createDataUser(username,password,nama,email,noHP,tglLahir).enqueue(object :
+                Callback<ResponseCreate> {
+                override fun onResponse(
+                    call: Call<ResponseCreate>,
+                    response: retrofit2.Response<ResponseCreate>
+                ) {
+                    if(response.isSuccessful){
+
+                        Toast.makeText(applicationContext,"${response.body()?.pesan}",
+                            Toast.LENGTH_LONG).show()
+                        finish()
+                    }else {
+                        val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+
+                        Toast.makeText(applicationContext,"Maaf sudah ada datanya", Toast.LENGTH_LONG).show()
+                    }
+                }
+                override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {
+                }
+            })
+        }
+    }
+
+
 
 }
 

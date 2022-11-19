@@ -30,6 +30,16 @@ class PrefManager(var context: Context?) {
         editor?.commit()
     }
 
+    fun setUserID(id: Int){
+        editor?.putInt("userID", id)
+        editor?.commit()
+    }
+
+    fun getUserID(): Int? {
+         return pref?.getInt("userID",-1)
+
+    }
+
     fun setInstall(isInstall: Boolean){
         editor?.putBoolean(IS_INSTALL,isInstall)
         editor?.commit()

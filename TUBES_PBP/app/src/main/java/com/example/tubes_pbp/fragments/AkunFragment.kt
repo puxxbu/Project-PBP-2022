@@ -30,8 +30,14 @@ import com.example.tubes_pbp.databinding.FragmentEditAkunBinding
 import com.example.tubes_pbp.entity.room.UsersDB
 import com.example.tubes_pbp.maps.MapActivity
 import com.example.tubes_pbp.notifications.NotificationReceiver
+import com.example.tubes_pbp.webapi.RClient
+import com.example.tubes_pbp.webapi.userApi.ResponseDataUser
+import com.example.tubes_pbp.webapi.userApi.UserData
 import kotlinx.android.synthetic.main.fragment_akun.view.*
 import kotlinx.coroutines.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -46,6 +52,8 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
     private val notificationId = 3
     private val CHANNEL_ID2 = "progress_done"
     private val notificationId2 = 4
+
+    private val listUser = ArrayList<UserData>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -66,6 +74,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
         createNotificationChannel()
 
         binding.user = prefManager.getUser()
+        setDataUser()
 
 
 
@@ -222,6 +231,32 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
 
 
 
+    }
+
+    fun setDataUser(){
+        RClient.instances.getDataUser(prefManager.getUserID()).enqueue(object :
+            Callback<ResponseDataUser> {
+            override fun onResponse(
+                call: Call<ResponseDataUser>,
+                response: Response<ResponseDataUser>
+            ){
+                if (response.isSuccessful){
+                    response.body()?.let {
+                        listUser.addAll(it.data)
+                        with(binding) {
+                            textNamaUser.setText(listUser[0].nama)
+                            tietNamaLengkap.setText(listUser[0].nama)
+                            tietTglLahir.setText(listUser[0].tglLahir)
+                            tietNoHP.setText(listUser[0].noHP)
+                            tietEmail.setText(listUser[0].email)
+                        }
+
+                    }
+                }
+            }
+            override fun onFailure(call: Call<ResponseDataUser>, t: Throwable) {
+            }
+        })
     }
 
 }

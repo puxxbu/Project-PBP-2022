@@ -6,14 +6,14 @@ import retrofit2.http.*
 
 interface apiUser {
     @GET("users/{cari}")
-    fun getData(@Path("cari") cari:String? = null): Call<ResponseDataUser>
+    fun getDataUser(@Path("cari") cari:String? = null): Call<ResponseDataUser>
 
     @GET("users")
-    fun getAllData(): Call<ResponseDataUser>
+    fun getAllDataUser(): Call<ResponseDataUser>
 
     @FormUrlEncoded
     @POST("users")
-    fun createData(
+    fun createDataUser(
         @Field("username") username:String?,
         @Field("password") password:String?,
         @Field("nama") nama:String?,
@@ -22,11 +22,11 @@ interface apiUser {
         @Field("tglLahir") tglLahir:String?,
     ): Call<ResponseCreate>
     @DELETE("users/{id}")
-    fun deleteData(@Path("id")id:
+    fun deleteDataUser(@Path("id")id:
                    Int?): Call<ResponseCreate>
     @FormUrlEncoded
     @PUT("users/{id}")
-    fun updateData(
+    fun updateDataUser(
         @Path("id") id:Int?,
         @Field("nama") nama:String?,
         @Field("alamat") alamat:String?,
