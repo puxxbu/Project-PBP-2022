@@ -31,6 +31,7 @@ import com.example.tubes_pbp.entity.room.UsersDB
 import com.example.tubes_pbp.maps.MapActivity
 import com.example.tubes_pbp.notifications.NotificationReceiver
 import com.example.tubes_pbp.webapi.RClient
+import com.example.tubes_pbp.webapi.ResponseCreate
 import com.example.tubes_pbp.webapi.userApi.ResponseDataUser
 import com.example.tubes_pbp.webapi.userApi.UserData
 import kotlinx.android.synthetic.main.fragment_akun.view.*
@@ -116,6 +117,9 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
         }
 
         binding.btnEdit.setOnClickListener {
+            updateDataUser()
+
+
 //            CoroutineScope(Dispatchers.IO).launch {
 //                val id = prefManager.getUser()?.id
 //                val nama = binding.tilNamaLengkap.getEditText()?.getText().toString()
@@ -255,6 +259,29 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
                 }
             }
             override fun onFailure(call: Call<ResponseDataUser>, t: Throwable) {
+            }
+        })
+    }
+
+    fun updateDataUser(){
+        val nama = binding.tilNamaLengkap.getEditText()?.getText().toString()
+        val tglLahir = binding.tilTglLahir.getEditText()?.getText().toString()
+        val noHP = binding.tilNoHP.getEditText()?.getText().toString()
+        val email = binding.tilEmail.getEditText()?.getText().toString()
+
+
+        RClient.instances.updateDataUser(prefManager.getUserID(),listUser[0].username,listUser[0].password,nama,email,noHP,tglLahir).enqueue(object :
+            Callback<ResponseCreate> {
+            override fun onResponse(
+                call: Call<ResponseCreate>,
+                response: Response<ResponseCreate>
+            ) {
+                if(response.isSuccessful) {
+                    binding.textNamaUser.setText(nama)
+                    Toast.makeText(getActivity(),"${response.body()?.pesan}", Toast.LENGTH_LONG).show()
+                }
+            }
+            override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {
             }
         })
     }

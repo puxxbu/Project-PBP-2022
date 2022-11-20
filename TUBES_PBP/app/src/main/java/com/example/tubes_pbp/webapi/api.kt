@@ -53,6 +53,8 @@ interface api {
     @PUT("users/{id}")
     fun updateDataUser(
         @Path("id") id:Int?,
+        @Field("username") username:String?,
+        @Field("password") password:String?,
         @Field("nama") nama:String?,
         @Field("email") email:String?,
         @Field("noHP") noHP:String?,
