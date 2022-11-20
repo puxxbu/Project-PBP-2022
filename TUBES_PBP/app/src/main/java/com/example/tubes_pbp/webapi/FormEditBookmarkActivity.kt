@@ -3,9 +3,11 @@ package com.example.tubes_pbp.webapi
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import com.example.tubes_pbp.HomeActivity
 import com.example.tubes_pbp.databinding.ActivityFormEditBookmarkBinding
 import retrofit2.Call
 import retrofit2.Callback
@@ -41,6 +43,10 @@ class FormEditBookmarkActivity : AppCompatActivity() {
                     ) {
                         if(response.isSuccessful) {
                             Toast.makeText(applicationContext,"${response.body()?.pesan}", Toast.LENGTH_LONG).show()
+                            var i = Intent(this@FormEditBookmarkActivity,HomeActivity::class.java).apply {
+                                putExtra("isUpdated",true)
+                            }
+                            startActivity(i)
                             finish()
                         }
                     }

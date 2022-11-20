@@ -1,7 +1,9 @@
 package com.example.tubes_pbp
 
+import android.content.ContentValues
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.example.tubes_pbp.databinding.ActivityHomeBinding
 import com.example.tubes_pbp.databinding.ActivityRegisterBinding
@@ -14,7 +16,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityHomeBinding
-
+    private var b:Bundle? = null
     private val berandaFragment: Fragment = BerandaFragment()
     private val pesananFragment: Fragment = PesananFragment()
     private val bookmarkFragment: Fragment = BookmarkFragment()
@@ -26,6 +28,12 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         setCurrentFragment(berandaFragment)
+
+        b = intent.extras
+        val status = b?.getBoolean("isUpdated")
+        if (status != null) {
+            setCurrentFragment(bookmarkFragment)
+        }
 
         val bottom_navigation : BottomNavigationView = findViewById(R.id.bottom_navigation)
 
