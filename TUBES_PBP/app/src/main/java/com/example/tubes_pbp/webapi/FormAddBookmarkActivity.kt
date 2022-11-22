@@ -10,6 +10,7 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import www.sanju.motiontoast.MotionToast
 import java.util.*
 
 class FormAddBookmarkActivity : AppCompatActivity() {
@@ -20,6 +21,13 @@ class FormAddBookmarkActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
         binding.btnAdd.setOnClickListener { saveData()
+            MotionToast.Companion.createToast( this, "Create Data is Success",
+                "Data Hotel berhasil Disimpan",
+                MotionToast.TOAST_SUCCESS,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                null
+            )
         }
     }
     fun saveData(){

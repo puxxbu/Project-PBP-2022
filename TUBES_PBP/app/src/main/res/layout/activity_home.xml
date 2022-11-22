@@ -26,5 +26,4 @@
         app:menu="@menu/home_menu"/>
 
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

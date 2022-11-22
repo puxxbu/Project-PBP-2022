@@ -34,6 +34,7 @@ import kotlinx.coroutines.launch
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
+import www.sanju.motiontoast.MotionToast
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -180,6 +181,14 @@ class RegisterActivity : AppCompatActivity() {
                  Toast.makeText(this, "Masukkan berhasil!", Toast.LENGTH_SHORT).show()
 
              }
+
+             MotionToast.Companion.createToast( this, "Register is Success",
+                 "Selamat Sekarang Anda Hanya Perlu Login",
+                 MotionToast.TOAST_SUCCESS,
+                 MotionToast.GRAVITY_BOTTOM,
+                 MotionToast.LONG_DURATION,
+                 null
+             )
 
              })
     }

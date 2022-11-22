@@ -15,6 +15,7 @@ import com.example.tubes_pbp.fragments.BookmarkFragment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import www.sanju.motiontoast.MotionToast
 
 class DetailBookmarkActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailBookmarkBinding
@@ -73,11 +74,18 @@ class DetailBookmarkActivity : AppCompatActivity() {
     }
     fun deleteData(idData:Int){
         val builder = AlertDialog.Builder(this@DetailBookmarkActivity)
-        builder.setMessage("Anda yakin untuk menghapus data tersebut?")
+        builder.setMessage("Anda yakin ingin menghapus hotel ini ?.")
             .setCancelable(false)
-            .setPositiveButton("Ya!"){dialog, id->doDeleteData(idData)
+            .setPositiveButton("Ya"){dialog, id->doDeleteData(idData)
+                MotionToast.Companion.createToast( this, "Delete Data is Success",
+                    "Data Hotel Berhasil Dihapus",
+                    MotionToast.TOAST_SUCCESS,
+                    MotionToast.GRAVITY_BOTTOM,
+                    MotionToast.LONG_DURATION,
+                    null
+                )
             }
-            .setNegativeButton("Tidak, Saya masih ingin menyimpan data saya"){dialog,id -> dialog.dismiss()
+            .setNegativeButton("Batal"){dialog,id -> dialog.dismiss()
             }
         val alert = builder.create()
         alert.show()
