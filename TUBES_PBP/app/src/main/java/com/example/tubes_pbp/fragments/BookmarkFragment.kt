@@ -58,6 +58,7 @@ package com.example.tubes_pbp.fragments
 
 // UNTUK MAIN ACTIVITY BOOKMARKNYA
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -130,6 +131,7 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
         binding.progressBar.visibility
         RClient.instances.getData(cari).enqueue(object :
             Callback<ResponseDataBookmark> {
+            @SuppressLint("NotifyDataSetChanged")
             override fun onResponse(
                 call: Call<ResponseDataBookmark>,
                 response: Response<ResponseDataBookmark>
