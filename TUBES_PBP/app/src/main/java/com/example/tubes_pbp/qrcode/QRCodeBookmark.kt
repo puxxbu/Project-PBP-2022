@@ -17,11 +17,16 @@ import androidx.core.content.ContextCompat
 import com.example.tubes_pbp.R
 import com.example.tubes_pbp.databinding.ActivityMainBinding
 import com.example.tubes_pbp.databinding.ActivityQrcodeBookmarkBinding
+import com.example.tubes_pbp.webapi.BookmarkData
+import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.google.mlkit.vision.barcode.BarcodeScanner
 import com.google.mlkit.vision.barcode.BarcodeScannerOptions
 import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.barcode.common.Barcode
 import com.google.mlkit.vision.common.InputImage
+import org.json.JSONObject
+import org.json.JSONTokener
 
 class QRCodeBookmark : AppCompatActivity(), View.OnClickListener {
 
@@ -258,6 +263,14 @@ class QRCodeBookmark : AppCompatActivity(), View.OnClickListener {
                 else -> {
                     binding.resultView.text =
                         "rawValue: $rawValue"
+
+                    val jsonObj = JSONTokener(rawValue).nextValue()
+                    if (jsonObj is JSONObject){
+                        var gson = Gson()
+                        var testModel = gson.fromJson(rawValue, BookmarkData::class.java)
+                        Log.d(TAG,testModel.nama)
+                    }
+
                 }
 
 

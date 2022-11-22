@@ -60,8 +60,8 @@ package com.example.tubes_pbp.fragments
 
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -73,6 +73,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tubes_pbp.R
 import com.example.tubes_pbp.databinding.FragmentBookmarkBinding
+import com.example.tubes_pbp.qrcode.QRCodeBookmark
 import com.example.tubes_pbp.webapi.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -89,6 +90,8 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
         super.onStart()
         getDataMahasiswa()
     }
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -118,6 +121,12 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
             context?.startActivity(i)
         }
 
+        binding.btnAdd2.setOnClickListener {
+            var i = Intent(context,
+                QRCodeBookmark::class.java)
+            context?.startActivity(i)
+        }
+
 
         return binding.root
 
@@ -139,10 +148,17 @@ class BookmarkFragment : Fragment(R.layout.fragment_bookmark) {
                 if (response.isSuccessful){
                     listBookmark.clear()
                     response.body()?.let { listBookmark.addAll(it.data) }
-                    val adapter = BookmarkAdapter(listBookmark, requireContext())
-                    binding.rvData.adapter = adapter
-                    adapter.notifyDataSetChanged()
-                    binding.progressBar.isVisible = false
+                    Log.d(TAG,context.toString() +"CONTEXT")
+
+                    if ( isAdded() ){
+                        val adapter = BookmarkAdapter(listBookmark, requireContext())
+                        binding.rvData.adapter = adapter
+                        adapter.notifyDataSetChanged()
+                        binding.progressBar.isVisible = false
+                    }
+
+
+
                 }
             }
             override fun onFailure(call: Call<ResponseDataBookmark>, t: Throwable) {

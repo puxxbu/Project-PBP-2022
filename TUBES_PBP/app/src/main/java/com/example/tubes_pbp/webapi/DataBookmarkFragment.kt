@@ -52,6 +52,8 @@ class DataBookmarkFragment : Fragment() {
                     binding.rvData.adapter = adapter
                     adapter.notifyDataSetChanged()
                     binding.progressBar.isVisible = false
+                }else{
+                    BookmarkAdapter(listBookmark, requireContext())
                 }
             }
             override fun onFailure(call: Call<ResponseDataBookmark>, t:
