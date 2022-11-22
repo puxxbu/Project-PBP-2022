@@ -19,6 +19,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.example.tubes_pbp.entity.room.UsersDB
 import com.example.tubes_pbp.notifications.NotificationReceiver
@@ -33,6 +34,7 @@ import kotlinx.coroutines.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import www.sanju.motiontoast.MotionToast
 import kotlin.math.log
 
 
@@ -106,13 +108,20 @@ class LoginActivity : AppCompatActivity() {
                 prefManager.setLoggin(false)
             }
 
-
             if (password.isEmpty()){
                 inputPassword.setError("Password must be filled with text")
                 prefManager.setLoggin(false)
             }
 
             getAllDataUser()
+
+            MotionToast.Companion.createToast( this, "Login Success!",
+            "Selamat Datang Di YourTravel",
+                MotionToast.TOAST_SUCCESS,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular)
+            )
 
 
 

@@ -12,10 +12,11 @@ import com.example.tubes_pbp.databinding.ActivityFormEditBookmarkBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import www.sanju.motiontoast.MotionToast
 import java.util.*
 import kotlin.collections.ArrayList
 
-class FormEditBookmarkActivity : AppCompatActivity() {
+class  FormEditBookmarkActivity : AppCompatActivity() {
     private lateinit var binding : ActivityFormEditBookmarkBinding
     private var b:Bundle? = null
     private val listBookmark = ArrayList<BookmarkData>()
@@ -54,6 +55,14 @@ class FormEditBookmarkActivity : AppCompatActivity() {
                     }
                 })
             }
+
+            MotionToast.Companion.createToast( this, "Update Data is Success",
+                "Data Hotel Pilihan sudah terUpdate",
+                MotionToast.TOAST_SUCCESS,
+                MotionToast.GRAVITY_BOTTOM,
+                MotionToast.LONG_DURATION,
+                null
+            )
         }
     }
     fun getDetailData(id:Int) {
