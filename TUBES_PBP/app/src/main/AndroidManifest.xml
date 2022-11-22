@@ -19,6 +19,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".QRCodeBookmark"
+            android:exported="false" />
+        <activity
             android:name=".webapi.FormEditBookmarkActivity"
             android:exported="false">
             <meta-data
