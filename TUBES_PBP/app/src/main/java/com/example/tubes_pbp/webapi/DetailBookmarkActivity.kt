@@ -73,11 +73,11 @@ class DetailBookmarkActivity : AppCompatActivity() {
     }
     fun deleteData(idData:Int){
         val builder = AlertDialog.Builder(this@DetailBookmarkActivity)
-        builder.setMessage("Anda Yakin mau hapus?? Saya ngga yakin loh.")
+        builder.setMessage("Anda yakin untuk menghapus data tersebut?")
             .setCancelable(false)
-            .setPositiveButton("Ya, Hapus Aja!"){dialog, id->doDeleteData(idData)
+            .setPositiveButton("Ya!"){dialog, id->doDeleteData(idData)
             }
-            .setNegativeButton("Tidak, Masih sayang dataku"){dialog,id -> dialog.dismiss()
+            .setNegativeButton("Tidak, Saya masih ingin menyimpan data saya"){dialog,id -> dialog.dismiss()
             }
         val alert = builder.create()
         alert.show()

@@ -18,6 +18,7 @@ class FormAddBookmarkActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFormAddBookmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
         binding.btnAdd.setOnClickListener { saveData()
         }
     }
