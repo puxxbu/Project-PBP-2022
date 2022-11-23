@@ -269,6 +269,8 @@ class QRCodeBookmark : AppCompatActivity(), View.OnClickListener {
                         var gson = Gson()
                         var testModel = gson.fromJson(rawValue, BookmarkData::class.java)
                         Log.d(TAG,testModel.nama)
+                    }else{
+                        Log.d(TAG,"NOT JSON OBJECT")
                     }
 
                 }
