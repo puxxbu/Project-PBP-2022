@@ -87,7 +87,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
             android:layout_marginRight="15dp"
-            android:src="@drawable/ic_baseline_add"
+            android:src="@drawable/ic_baseline_qr_code"
             android:id="@+id/btn_add2"
             android:tint="@color/white"
             app:layout_constraintBottom_toTopOf="@id/btn_add"

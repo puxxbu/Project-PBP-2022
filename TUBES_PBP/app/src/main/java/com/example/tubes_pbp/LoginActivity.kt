@@ -115,13 +115,7 @@ class LoginActivity : AppCompatActivity() {
 
             getAllDataUser()
 
-            MotionToast.Companion.createToast( this, "Login Success!",
-            "Selamat Datang Di YourTravel",
-                MotionToast.TOAST_SUCCESS,
-                MotionToast.GRAVITY_BOTTOM,
-                MotionToast.LONG_DURATION,
-                ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular)
-            )
+
 
 
 
@@ -252,6 +246,7 @@ class LoginActivity : AppCompatActivity() {
                             Log.d(TAG,filterUser.toString() + " LIST USER WONTEN")
                             prefManager.setLoggin(true)
                             prefManager.setUserID(filterUser[0].id)
+                            showToast("Login Berhasil")
                             startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                         }
 
@@ -264,5 +259,15 @@ class LoginActivity : AppCompatActivity() {
         })
 
         return listUser
+    }
+
+    fun showToast(text : String){
+        MotionToast.Companion.createToast( this, text,
+            "Selamat Datang Di YourTravel",
+            MotionToast.TOAST_SUCCESS,
+            MotionToast.GRAVITY_BOTTOM,
+            MotionToast.LONG_DURATION,
+            ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular)
+        )
     }
 }

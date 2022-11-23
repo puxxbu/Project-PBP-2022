@@ -50,7 +50,6 @@
             android:id="@+id/imageTv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:tint="@color/black"
             android:src="@drawable/ic_baseline_qr_code_scanner"
             android:adjustViewBounds="true"/>
 
