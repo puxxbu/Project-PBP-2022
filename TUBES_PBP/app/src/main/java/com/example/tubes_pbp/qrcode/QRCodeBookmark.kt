@@ -14,10 +14,12 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.tubes_pbp.HomeActivity
 import com.example.tubes_pbp.R
 import com.example.tubes_pbp.databinding.ActivityMainBinding
 import com.example.tubes_pbp.databinding.ActivityQrcodeBookmarkBinding
 import com.example.tubes_pbp.webapi.BookmarkData
+import com.example.tubes_pbp.webapi.FormAddBookmarkActivity
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.google.mlkit.vision.barcode.BarcodeScanner
@@ -181,101 +183,27 @@ class QRCodeBookmark : AppCompatActivity(), View.OnClickListener {
 
             val rawValue = barcode.rawValue
             Log.d(TAG,"extractbarcodeQrCodeInfo: rawValue: $rawValue")
+            supportActionBar?.hide()
 
 
             val valueType = barcode.valueType
-            when(valueType) {
-                Barcode.TYPE_WIFI -> {
-                    val typeWifi = barcode.wifi
-                    val ssid = "${typeWifi?.ssid}"
-                    val password = "${typeWifi?.password}"
-                    var encryptionType = "${typeWifi?.encryptionType}"
+            binding.resultView.text =
+                "rawValue: $rawValue"
 
-                    if (encryptionType == "1"){
-                        encryptionType = "OPEN"
-                    } else if (encryptionType == "2"){
-                        encryptionType = "WPA"
-                    } else if (encryptionType == "3"){
-                        encryptionType = "WEP"
-                    }
+            val jsonObj = JSONTokener(rawValue).nextValue()
 
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: TYPE_WIFI")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: ssid: $ssid")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: password: $password")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: encryptionType: $encryptionType")
-
-                    binding.resultView.text =
-                        "TYPE_WIFI \n ssid: $ssid \npassword: $password \nencryptionType: $encryptionType" +
-                                "\n\nrawValue : $rawValue"
-
+            if (jsonObj is JSONObject){
+                var gson = Gson()
+                var testModel = gson.fromJson(rawValue, BookmarkData::class.java)
+                var i = Intent(this@QRCodeBookmark, FormAddBookmarkActivity::class.java).apply {
+                    putExtra("rawValue",rawValue)
                 }
-                Barcode.TYPE_URL -> {
-                    val typeUrl = barcode.url
-                    val title = "${typeUrl?.title}"
-                    val url = "${typeUrl?.url}"
-
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: TYPE_URL")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: title: $title")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: url: $url")
-
-                    binding.resultView.text =
-                        "TYPE_URL \ntitle: $title \nurl: $url \n\nrawValue : $rawValue"
-
-                }
-                Barcode.TYPE_EMAIL -> {
-                    val typeEmail = barcode.email
-                    val address = "${typeEmail?.address}"
-                    val body = "${typeEmail?.body}"
-                    val subject = "${typeEmail?.subject}"
-
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: TYPE_EMAIL")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: address: $address")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: body: $body")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: subject: $subject")
-
-                    binding.resultView.text =
-                        "TYPE_EMAIL \ntitle: $address \nurl: $body \nsubject: $subject \n\nrawValue : $rawValue"
-
-
-                }
-                Barcode.TYPE_CONTACT_INFO -> {
-                    val typeContact = barcode.contactInfo
-                    val title = "${typeContact?.title}"
-                    val organisasi = "${typeContact?.organization}"
-                    val name = "${typeContact?.name}"
-                    val phone = "${typeContact?.phones}"
-
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: TYPE_CONTACT_INFO")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: Title: $title")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: Organization: $organisasi")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: nama: $name")
-                    Log.d(TAG,"extractbarcodeQrCodeInfo: Phone: $phone")
-
-                    binding.resultView.text =
-                        "TYPE_CONTACT_INFO " +
-                                "\ntitle: $title " +
-                                "\nnama: $name " +
-                                "\norganization: $organisasi " +
-                                "\nPhone : $phone"
-                    "\n\nrawValue : $rawValue"
-
-                }
-                else -> {
-                    binding.resultView.text =
-                        "rawValue: $rawValue"
-
-                    val jsonObj = JSONTokener(rawValue).nextValue()
-                    if (jsonObj is JSONObject){
-                        var gson = Gson()
-                        var testModel = gson.fromJson(rawValue, BookmarkData::class.java)
-                        Log.d(TAG,testModel.nama)
-                    }else{
-                        Log.d(TAG,"NOT JSON OBJECT")
-                    }
-
-                }
-
-
+                finish()
+                startActivity(i)
+                Log.d(TAG,testModel.nama)
+            }else{
+                Log.d(TAG,"NOT JSON OBJECT")
+                showToast("Format QR Tidak Cocok!")
             }
 
 

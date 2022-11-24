@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.tubes_pbp.databinding.ActivityFormAddBookmarkBinding
+import com.google.gson.Gson
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -15,11 +16,25 @@ import java.util.*
 
 class FormAddBookmarkActivity : AppCompatActivity() {
     private lateinit var binding : ActivityFormAddBookmarkBinding
+    private var b:Bundle? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityFormAddBookmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
+
+        b = intent.extras
+        val dataByScan = b?.getString("rawValue")
+        if (dataByScan != null){
+            var gson = Gson()
+            var testModel = gson.fromJson(dataByScan, BookmarkData::class.java)
+            binding.txtNama.setText(testModel.nama)
+            binding.txtAlamat.setText(testModel.alamat)
+        }
+
+
+
         binding.btnAdd.setOnClickListener { saveData()
             MotionToast.Companion.createToast( this, "Create Data is Success",
                 "Data Hotel berhasil Disimpan",
