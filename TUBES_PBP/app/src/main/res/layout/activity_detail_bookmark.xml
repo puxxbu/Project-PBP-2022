@@ -90,6 +90,20 @@
             app:icon="@drawable/ic_baseline_trash"
             android:backgroundTint="#E61919"
             app:cornerRadius="5dp"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_printPdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="140dp"
+            android:backgroundTint="#0000FF"
+            android:text="Print"
+            android:textAllCaps="false"
+            app:cornerRadius="5dp"
+            app:icon="@drawable/ic_baseline_pdf"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_edit"
             android:layout_width="wrap_content"

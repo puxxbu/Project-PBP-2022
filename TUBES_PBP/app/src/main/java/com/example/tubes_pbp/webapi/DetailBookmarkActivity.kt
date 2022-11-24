@@ -1,21 +1,35 @@
 package com.example.tubes_pbp.webapi
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tubes_pbp.R
 import com.example.tubes_pbp.databinding.ActivityDetailBookmarkBinding
-import com.example.tubes_pbp.fragments.BookmarkFragment
+import com.itextpdf.kernel.geom.PageSize
+import com.itextpdf.kernel.pdf.PdfDocument
+import com.itextpdf.kernel.pdf.PdfWriter
+import com.itextpdf.layout.Document
+import com.itextpdf.layout.element.Cell
+import com.itextpdf.layout.element.Paragraph
+import com.itextpdf.layout.element.Table
+import com.itextpdf.layout.property.HorizontalAlignment
+import com.itextpdf.layout.property.TextAlignment
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import www.sanju.motiontoast.MotionToast
+import java.io.File
+import java.io.FileNotFoundException
+import java.io.FileOutputStream
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class DetailBookmarkActivity : AppCompatActivity() {
     private lateinit var binding : ActivityDetailBookmarkBinding
@@ -36,15 +50,38 @@ class DetailBookmarkActivity : AppCompatActivity() {
         }
 
         id?.let { getDataDetail(it) }
-        binding.btnHapus.setOnClickListener { id?.let { it1 -> deleteData(it1) }
+        binding.btnHapus.setOnClickListener {
+            id?.let { it1 -> deleteData(it1) }
         }
-        binding.btnEdit.setOnClickListener { startActivity(
-            Intent(this,
-                FormEditBookmarkActivity::class.java).apply {
-                putExtra("id",id)
-            })
+        binding.btnEdit.setOnClickListener {
+            startActivity(
+                Intent(
+                    this,
+                    FormEditBookmarkActivity::class.java
+                ).apply {
+                    putExtra("id", id)
+                })
+        }
+        binding.btnPrintPdf.setOnClickListener {
+            with(binding) {
+                val nama = tvNama.text.toString()
+                val alamat = tvAlamat.text.toString()
+
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        createPdf(nama, alamat)
+                    }
+                } catch (e: FileNotFoundException) {
+                    e.printStackTrace()
+                }
+            }
         }
     }
+    @SuppressLint("ObsoleteSdkInt")
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @Throws(
+        FileNotFoundException::class
+    )
     fun getDataDetail(id:Int){ RClient.instances.getData(id.toString()).enqueue(object :
         Callback<ResponseDataBookmark> {
         override fun onResponse(
@@ -104,8 +141,33 @@ class DetailBookmarkActivity : AppCompatActivity() {
             }
         })
     }
+    private fun createPdf(nama: String, alamat: String) {
+        val pdfPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
+        val file = File(pdfPath, "Bookmark Hotel Tubes_PBP.pdf")
+        FileOutputStream(file)
+        //Initiate
+        val writer = PdfWriter(file)
+        val pdfDocument = PdfDocument(writer)
+        val document = Document(pdfDocument)
+        pdfDocument.defaultPageSize = PageSize.A4
+        document.setMargins(5f,5f,5f,5f)
 
+        //Isi data
+        val dataBookmark = Paragraph("Data Bookmark").setBold().setFontSize(24f).setTextAlignment(TextAlignment.CENTER)
+        val width = floatArrayOf(100f, 100f)
+        val table = Table(width)
+        table.setHorizontalAlignment(HorizontalAlignment.CENTER)
+        table.addCell(Cell().add(Paragraph("Nama Hotel")))
+        table.addCell(Cell().add(Paragraph(nama)))
+        table.addCell(Cell().add(Paragraph("Alamat Hotel")))
+        table.addCell(Cell().add(Paragraph(alamat)))
+        val dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        table.addCell(Cell().add(Paragraph("Tanggal Buat PDF")))
+        table.addCell(Cell().add(Paragraph(LocalDate.now().format(dateTimeFormatter))))
 
-
-
+        document.add(dataBookmark)
+        document.add(table)
+        document.close()
+        Toast.makeText(this, "Pdf berhasil dibuat", Toast.LENGTH_LONG).show()
+    }
 }

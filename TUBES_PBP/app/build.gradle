@@ -98,6 +98,7 @@ dependencies {
     implementation 'com.itextpdf:kernel:7.1.13'
     implementation 'com.itextpdf:layout:7.1.13'
     implementation 'com.itextpdf:barcodes:7.1.13'
+    implementation 'com.itextpdf:itext7-core:7.1.13'
     //implementasi QR Code Scanner
     implementation 'com.github.yuriy-budiyev:code-scanner:2.3.2'
     //implementasi QR CODE GENERATE
