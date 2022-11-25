@@ -54,6 +54,7 @@ class QRCodeBookmark : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         binding = ActivityQrcodeBookmarkBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
 
         binding.cameraBtn.setOnClickListener(this)
         binding.galleryBtn.setOnClickListener(this)

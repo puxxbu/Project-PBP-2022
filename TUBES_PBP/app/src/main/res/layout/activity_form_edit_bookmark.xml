@@ -83,18 +83,18 @@
         android:layout_marginHorizontal="10dp"
         />
 
-    <com.google.android.material.button.MaterialButton
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_getdata"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btn_update"
-        android:text="Get Data From QR"
-        android:textAllCaps="false"
-        android:layout_marginTop="12dp"
-        android:layout_marginHorizontal="10dp"
-        app:icon="@drawable/ic_baseline_qr_code_scanner"
-        app:iconGravity="textStart"
-        />
+<!--    <com.google.android.material.button.MaterialButton-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:id="@+id/btn_getdata"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/btn_update"-->
+<!--        android:text="Get Data From QR"-->
+<!--        android:textAllCaps="false"-->
+<!--        android:layout_marginTop="12dp"-->
+<!--        android:layout_marginHorizontal="10dp"-->
+<!--        app:icon="@drawable/ic_baseline_qr_code_scanner"-->
+<!--        app:iconGravity="textStart"-->
+<!--        />-->
 </androidx.constraintlayout.widget.ConstraintLayout>
