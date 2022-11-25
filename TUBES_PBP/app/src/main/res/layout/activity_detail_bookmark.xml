@@ -96,7 +96,6 @@
             android:id="@+id/btn_printPdf"
             android:layout_width="117dp"
             android:layout_height="47dp"
-            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:backgroundTint="#0000FF"
             android:text="Print"
@@ -106,7 +105,6 @@
             app:layout_constraintEnd_toStartOf="@+id/btn_edit"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/btn_hapus"
-            app:layout_constraintStart_toStartOf="@+id/btn_hapus"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton

@@ -12,11 +12,15 @@ import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.tubes_pbp.databinding.ActivityDetailBookmarkBinding
+import com.google.gson.Gson
+import com.itextpdf.barcodes.BarcodeQRCode
+import com.itextpdf.kernel.colors.ColorConstants
 import com.itextpdf.kernel.geom.PageSize
 import com.itextpdf.kernel.pdf.PdfDocument
 import com.itextpdf.kernel.pdf.PdfWriter
 import com.itextpdf.layout.Document
 import com.itextpdf.layout.element.Cell
+import com.itextpdf.layout.element.Image
 import com.itextpdf.layout.element.Paragraph
 import com.itextpdf.layout.element.Table
 import com.itextpdf.layout.property.HorizontalAlignment
@@ -29,6 +33,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
 class DetailBookmarkActivity : AppCompatActivity() {
@@ -143,7 +148,9 @@ class DetailBookmarkActivity : AppCompatActivity() {
     }
     private fun createPdf(nama: String, alamat: String) {
         val pdfPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString()
-        val file = File(pdfPath, "Bookmark Hotel Tubes_PBP.pdf")
+        val randString = getRandomString(5)
+        val file = File(pdfPath, "Bookmark Hotel Tubes_PBP ${randString}.pdf")
+
         FileOutputStream(file)
         //Initiate
         val writer = PdfWriter(file)
@@ -164,10 +171,26 @@ class DetailBookmarkActivity : AppCompatActivity() {
         val dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
         table.addCell(Cell().add(Paragraph("Tanggal Buat PDF")))
         table.addCell(Cell().add(Paragraph(LocalDate.now().format(dateTimeFormatter))))
+        val gson = Gson()
+
+        val data = BookmarkData(1,nama,alamat)
+        val dataJSON = gson.toJson(data)
+        val barcodeQRCode = BarcodeQRCode(dataJSON)
+        val qrCodeObject = barcodeQRCode.createFormXObject(ColorConstants.BLACK, pdfDocument)
+        val qrCodeImage = Image(qrCodeObject).setWidth(80f).setHorizontalAlignment(HorizontalAlignment.CENTER)
+
 
         document.add(dataBookmark)
         document.add(table)
+        document.add(qrCodeImage)
         document.close()
         Toast.makeText(this, "Pdf berhasil dibuat", Toast.LENGTH_LONG).show()
+    }
+
+    fun getRandomString(length: Int) : String {
+        val charset = "ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz0123456789"
+        return (1..length)
+            .map { charset.random() }
+            .joinToString("")
     }
 }
