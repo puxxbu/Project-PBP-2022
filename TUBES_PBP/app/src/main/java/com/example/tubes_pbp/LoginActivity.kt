@@ -1,5 +1,6 @@
 package com.example.tubes_pbp
 
+import android.R.attr.button
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -13,29 +14,31 @@ import android.os.Handler
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import com.example.tubes_pbp.entity.room.UsersDB
+import com.example.tubes_pbp.maps.MapActivity
 import com.example.tubes_pbp.notifications.NotificationReceiver
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputLayout
-import kotlinx.android.synthetic.main.activity_login.*
-import com.example.tubes_pbp.maps.*
 import com.example.tubes_pbp.webapi.RClient
 import com.example.tubes_pbp.webapi.userApi.ResponseDataUser
 import com.example.tubes_pbp.webapi.userApi.UserData
-import kotlinx.coroutines.*
+import com.google.android.material.snackbar.Snackbar
+import com.google.android.material.textfield.TextInputLayout
+import com.skydoves.balloon.ArrowPositionRules
+import com.skydoves.balloon.Balloon
+import com.skydoves.balloon.BalloonAnimation
+import com.skydoves.balloon.BalloonSizeSpec
+import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import www.sanju.motiontoast.MotionToast
-import kotlin.math.log
 
 
 class LoginActivity : AppCompatActivity() {
@@ -75,6 +78,7 @@ class LoginActivity : AppCompatActivity() {
         inputPassword = findViewById(R.id.inputLayoutPassword)!!
         loginLayout = findViewById(R.id.loginLayout)
         val btnLogin: Button = findViewById(R.id.btnLogin)
+        val imgLogin: ImageView = findViewById(R.id.loginimageView)
 //        val btnMap: Button = findViewById(R.id.btnMap)
         inputUsername.getEditText()?.setText("")
         inputPassword.getEditText()?.setText("")
@@ -95,6 +99,26 @@ class LoginActivity : AppCompatActivity() {
 //        btnMap.setOnClickListener(View.OnClickListener {
 //            startActivity(moveMap)
 //        })
+
+        imgLogin.setOnClickListener{
+            val balloon = Balloon.Builder(this@LoginActivity)
+                .setWidthRatio(1.0f)
+                .setHeight(BalloonSizeSpec.WRAP)
+                .setText("Kamu telah menekan gambar login kami !!!")
+                .setTextColorResource(R.color.white)
+                .setTextSize(15f)
+                .setIconDrawableResource(R.drawable.ic_edit)
+                .setArrowPositionRules(ArrowPositionRules.ALIGN_ANCHOR)
+                .setArrowSize(10)
+                .setArrowPosition(0.5f)
+                .setPadding(12)
+                .setCornerRadius(8f)
+                .setBackgroundColorResource(R.color.primaryColor)
+                .setBalloonAnimation(BalloonAnimation.ELASTIC)
+                .build()
+            balloon.showAlignTop(imgLogin)
+            Handler().postDelayed({ balloon.dismiss() }, 2000)
+        }
 
         btnLogin.setOnClickListener(View.OnClickListener {
 

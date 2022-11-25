@@ -93,6 +93,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
+    //library Baloon
+    implementation "com.github.skydoves:balloon:1.4.7"
+
     //implementasi PDF Library IText
     implementation 'com.itextpdf:io:7.1.13'
     implementation 'com.itextpdf:kernel:7.1.13'
