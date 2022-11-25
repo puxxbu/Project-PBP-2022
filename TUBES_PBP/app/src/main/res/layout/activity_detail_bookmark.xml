@@ -77,46 +77,48 @@
         android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginVertical="15dp"
+        android:layout_marginVertical="20dp"
         android:layout_marginHorizontal="15dp">
 
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_hapus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#E61919"
-            android:text="Delete"
-            android:textAllCaps="false"
-            app:cornerRadius="5dp"
-            app:icon="@drawable/ic_baseline_trash"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btn_printPdf"
-            android:layout_width="117dp"
-            android:layout_height="47dp"
-            android:layout_marginEnd="8dp"
-            android:backgroundTint="#0000FF"
-            android:text="Print"
-            android:textAllCaps="false"
-            app:cornerRadius="5dp"
-            app:icon="@drawable/ic_baseline_pdf"
-            app:layout_constraintEnd_toStartOf="@+id/btn_edit"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/btn_hapus"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_edit"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#0D730D"
             android:text="Update"
             android:textAllCaps="false"
             app:cornerRadius="5dp"
             app:icon="@drawable/ic_baseline_edit"
+            app:iconGravity="textStart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_hapus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#E61919"
+            android:text="Delete"
+            android:textAllCaps="false"
+            app:cornerRadius="5dp"
+            app:icon="@drawable/ic_baseline_trash"
+            app:iconGravity="textStart"
+            app:layout_constraintTop_toBottomOf="@+id/btn_edit"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_printPdf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:backgroundTint="#0000FF"
+            android:text="Print"
+            android:textAllCaps="false"
+            app:cornerRadius="5dp"
+            app:icon="@drawable/ic_baseline_pdf"
+            app:iconGravity="textStart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_hapus" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
