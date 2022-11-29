@@ -17,6 +17,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.core.view.isEmpty
+import com.example.tubes_pbp.databinding.ActivityFormEditBookmarkBinding
 import com.example.tubes_pbp.databinding.ActivityMainBinding
 import com.example.tubes_pbp.databinding.ActivityRegisterBinding
 import com.example.tubes_pbp.entity.room.Users
@@ -43,7 +44,7 @@ class RegisterActivity : AppCompatActivity() {
 
     private lateinit var usersDb: UsersDB
     private lateinit var prefManager: PrefManager
-    private var binding: ActivityRegisterBinding? = null
+    private lateinit var binding : ActivityRegisterBinding
     private val CHANNEL_ID = "register_notification"
     private val notificationId = 101
 
@@ -51,7 +52,8 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var binding = ActivityRegisterBinding.inflate(layoutInflater)
+
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
@@ -117,79 +119,9 @@ class RegisterActivity : AppCompatActivity() {
              val noHp: String = binding.tilNoHP.getEditText()?.getText().toString()
              val email: String = binding.tilEmail.getEditText()?.getText().toString()
              val tglLahir: String = binding.tilTglLahir.getEditText()?.getText().toString()
+             val user = Users(0,username,password,nama,email,noHp,tglLahir)
+             saveData(user)
 
-             val mBundle = Bundle()
-
-             mBundle.putString("username", username)
-             mBundle.putString("password", password)
-
-             if (username.isEmpty()){
-                 binding.tilUsername.setError("Username must be filled ")
-//                 checkRegister = false
-             }
-
-             if (password.isEmpty()){
-                 binding.tilPassword.setError("Password must be filled ")
-//                 checkRegister = false
-             }
-
-             if (nama.isEmpty()){
-                 binding.tilNamaLengkap.setError("Nama must be filled ")
-//                 checkRegister = false
-             }
-
-             if (noHp.isEmpty()){
-                 binding.tilNoHP.setError("Nomor HP must be filled ")
-//                 checkRegister = false
-             }
-
-             if (email.isEmpty()){
-                 binding.tilEmail.setError("Email must be filled ")
-//                 checkRegister = false
-             }
-
-             if (tglLahir.isEmpty()){
-                 binding.tilTglLahir.setError("Tanggal Lahir must be filled ")
-//                 checkRegister = false
-             }
-             checkRegister = true
-             if(!nama.isEmpty() && !tglLahir.isEmpty() && !noHp.isEmpty() && !email.isEmpty() && !username.isEmpty() && !password.isEmpty() ){
-                 checkRegister = true
-             }
-
-             if(!checkRegister){
-                 return@OnClickListener
-
-             }else {
-                val moveLogin = Intent(this, LoginActivity::class.java)
-
-                moveLogin.putExtra("register",mBundle)
-                startActivity(moveLogin)
-                sendNotification(nama)
-
-                prefManager = PrefManager(this)
-                prefManager.setUsername(username)
-
-
-                val user = Users(0,username,password,nama,email,noHp,tglLahir)
-                 saveData(user)
-
-                 // ROOM DELETE
-//                CoroutineScope(Dispatchers.IO).launch{
-//                     usersDb.usersDao().addUsers(user)
-//                     finish()
-//                }
-                 Toast.makeText(this, "Masukkan berhasil!", Toast.LENGTH_SHORT).show()
-
-             }
-
-             MotionToast.Companion.createToast( this, "Register is Success",
-                 "Selamat Sekarang Anda Hanya Perlu Login",
-                 MotionToast.TOAST_SUCCESS,
-                 MotionToast.GRAVITY_BOTTOM,
-                 MotionToast.LONG_DURATION,
-                 null
-             )
 
              })
     }
@@ -246,13 +178,23 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     fun saveData(user: Users){
-        with(binding) {
+
             val username =  user.username
             val password: String =   user.password
             val nama: String = user.nama
             val noHP: String = user.noHP
             val email: String = user.email
             val tglLahir: String =user.tglLahir
+
+            val moveLogin = Intent(this, LoginActivity::class.java)
+            val mBundle = Bundle()
+
+            mBundle.putString("username", username)
+            mBundle.putString("password", password)
+
+
+            prefManager = PrefManager(this)
+            prefManager.setUsername(username)
 
             Log.d(TAG,username)
 
@@ -264,19 +206,53 @@ class RegisterActivity : AppCompatActivity() {
                     response: retrofit2.Response<ResponseCreate>
                 ) {
                     if(response.isSuccessful){
+                        Log.d(TAG, "WOI AMAN")
+                        MotionToast.Companion.createToast( this@RegisterActivity, "Register is Success",
+                            "Selamat Sekarang Anda Hanya Perlu Login",
+                            MotionToast.TOAST_SUCCESS,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            null
+                        )
 
 
-//                        Toast.makeText(applicationContext,"${response.body()?.pesan}",
-//                            Toast.LENGTH_LONG).show()
+                        moveLogin.putExtra("register",mBundle)
+                        startActivity(moveLogin)
+                        sendNotification(nama)
                         finish()
                     }else {
                         val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
-                        val error = jsonObj.get("username").toString()
-                            .replace("[","")
-                            .replace("]","")
-                            .replace("\"","")
 
-                        Log.d(TAG, "woi gagal" + error)
+                        val error = getError(jsonObj,"nama")
+                        Log.d(TAG, "WOI ERROR" + error )
+
+                        with(binding){
+
+                            if (getError(jsonObj,"username").isNotEmpty()){
+
+                                tilUsername.setError(getError(jsonObj,"username"))
+                            }
+
+                            if (getError(jsonObj,"password").isNotEmpty()){
+                                tilPassword.setError(getError(jsonObj,"password"))
+                            }
+
+                            if (getError(jsonObj,"nama").isNotEmpty()){
+                                tilNamaLengkap.setError(getError(jsonObj,"nama"))
+                            }
+
+                            if (getError(jsonObj,"noHP").isNotEmpty()){
+                                tilNoHP.setError(getError(jsonObj,"noHP"))
+                            }
+
+                            if (getError(jsonObj,"email").isNotEmpty()){
+                                tilEmail.setError(getError(jsonObj,"email"))
+                            }
+
+                            if (getError(jsonObj,"tglLahir").isNotEmpty()){
+                                tilTglLahir.setError(getError(jsonObj,"tglLahir"))
+                            }
+                        }
 
 //                        Toast.makeText(applicationContext,"Maaf sudah ada datanya", Toast.LENGTH_LONG).show()
                     }
@@ -284,7 +260,19 @@ class RegisterActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {
                 }
             })
+
+    }
+
+    fun getError(jsonObject: JSONObject, target: String): String {
+        if (jsonObject.has(target)){
+            return jsonObject.get(target).toString()
+                .replace("[","")
+                .replace("]","")
+                .replace("\"","")
+        }else{
+            return ""
         }
+
     }
 
 
