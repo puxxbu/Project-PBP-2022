@@ -8,6 +8,7 @@ import android.graphics.Color
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils.replace
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -124,34 +125,34 @@ class RegisterActivity : AppCompatActivity() {
 
              if (username.isEmpty()){
                  binding.tilUsername.setError("Username must be filled ")
-                 checkRegister = false
+//                 checkRegister = false
              }
 
              if (password.isEmpty()){
                  binding.tilPassword.setError("Password must be filled ")
-                 checkRegister = false
+//                 checkRegister = false
              }
 
              if (nama.isEmpty()){
                  binding.tilNamaLengkap.setError("Nama must be filled ")
-                 checkRegister = false
+//                 checkRegister = false
              }
 
              if (noHp.isEmpty()){
                  binding.tilNoHP.setError("Nomor HP must be filled ")
-                 checkRegister = false
+//                 checkRegister = false
              }
 
              if (email.isEmpty()){
                  binding.tilEmail.setError("Email must be filled ")
-                 checkRegister = false
+//                 checkRegister = false
              }
 
              if (tglLahir.isEmpty()){
                  binding.tilTglLahir.setError("Tanggal Lahir must be filled ")
-                 checkRegister = false
+//                 checkRegister = false
              }
-
+             checkRegister = true
              if(!nama.isEmpty() && !tglLahir.isEmpty() && !noHp.isEmpty() && !email.isEmpty() && !username.isEmpty() && !password.isEmpty() ){
                  checkRegister = true
              }
@@ -264,13 +265,20 @@ class RegisterActivity : AppCompatActivity() {
                 ) {
                     if(response.isSuccessful){
 
-                        Toast.makeText(applicationContext,"${response.body()?.pesan}",
-                            Toast.LENGTH_LONG).show()
+
+//                        Toast.makeText(applicationContext,"${response.body()?.pesan}",
+//                            Toast.LENGTH_LONG).show()
                         finish()
                     }else {
                         val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                        val error = jsonObj.get("username").toString()
+                            .replace("[","")
+                            .replace("]","")
+                            .replace("\"","")
 
-                        Toast.makeText(applicationContext,"Maaf sudah ada datanya", Toast.LENGTH_LONG).show()
+                        Log.d(TAG, "woi gagal" + error)
+
+//                        Toast.makeText(applicationContext,"Maaf sudah ada datanya", Toast.LENGTH_LONG).show()
                     }
                 }
                 override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {

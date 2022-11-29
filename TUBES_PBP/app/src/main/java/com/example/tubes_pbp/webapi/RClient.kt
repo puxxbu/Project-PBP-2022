@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object RClient {
-    private const val BASE_URL = "https://gentle-scrubland-87023.herokuapp.com/api/"
+    private const val BASE_URL = "http://10.53.0.23/gentle-scrubland-87023/public/api/"
 
     // Create Logger
     private val logger = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
