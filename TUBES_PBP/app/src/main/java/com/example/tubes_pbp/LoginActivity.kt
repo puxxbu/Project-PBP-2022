@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.NotificationCompat
@@ -22,6 +23,7 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.core.view.get
 import com.example.tubes_pbp.entity.room.UsersDB
 import com.example.tubes_pbp.maps.MapActivity
 import com.example.tubes_pbp.notifications.NotificationReceiver
@@ -128,12 +130,32 @@ class LoginActivity : AppCompatActivity() {
             val password: String = inputPassword.getEditText()?.getText().toString()
 
             if (username.isEmpty()){
-                inputUsername.setError("Username must be filled with text")
+                //inputUsername.setError("Username must be filled with text")
+                Toast.makeText(
+                    this,
+                    "Username tidak boleh kosong!",
+                    Toast.LENGTH_SHORT
+                ).show()
                 prefManager.setLoggin(false)
             }
 
             if (password.isEmpty()){
-                inputPassword.setError("Password must be filled with text")
+                //inputPassword.setError("Password must be filled with text")
+                Toast.makeText(
+                    this,
+                    "Password tidak boleh kosong!",
+                    Toast.LENGTH_SHORT
+                ).show()
+                prefManager.setLoggin(false)
+            }
+
+            if (password.isEmpty() && username.isEmpty()){
+                //inputPassword.setError("Password must be filled with text")
+                Toast.makeText(
+                    this,
+                    "Username dan Password tidak boleh kosong!",
+                    Toast.LENGTH_SHORT
+                ).show()
                 prefManager.setLoggin(false)
             }
 
