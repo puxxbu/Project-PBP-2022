@@ -207,6 +207,15 @@ class RegisterActivity : AppCompatActivity() {
                 ) {
                     if(response.isSuccessful){
                         Log.d(TAG, "WOI AMAN")
+
+
+
+                        moveLogin.putExtra("register",mBundle)
+                        startActivity(moveLogin)
+                        sendNotification(nama)
+                        finish()
+//                        Toast.makeText(this@RegisterActivity,"Register is Success\",\n" +
+//                                "                            \"Selamat Sekarang Anda Hanya Perlu Login", Toast.LENGTH_LONG).show()
                         MotionToast.Companion.createToast( this@RegisterActivity, "Register is Success",
                             "Selamat Sekarang Anda Hanya Perlu Login",
                             MotionToast.TOAST_SUCCESS,
@@ -215,11 +224,6 @@ class RegisterActivity : AppCompatActivity() {
                             null
                         )
 
-
-                        moveLogin.putExtra("register",mBundle)
-                        startActivity(moveLogin)
-                        sendNotification(nama)
-                        finish()
                     }else {
                         val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
 
