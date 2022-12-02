@@ -60,4 +60,11 @@ interface api {
         @Field("noHP") noHP:String?,
         @Field("tglLahir") tglLahir:String?,
     ): Call<ResponseCreate>
+
+    @FormUrlEncoded
+    @POST("login")
+    fun loginUser(
+        @Field("username") username:String?,
+        @Field("password") password:String?,
+    ): Call<ResponseCreate>
 }

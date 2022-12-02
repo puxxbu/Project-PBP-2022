@@ -28,19 +28,24 @@ import com.example.tubes_pbp.entity.room.UsersDB
 import com.example.tubes_pbp.maps.MapActivity
 import com.example.tubes_pbp.notifications.NotificationReceiver
 import com.example.tubes_pbp.webapi.RClient
+import com.example.tubes_pbp.webapi.ResponseCreate
 import com.example.tubes_pbp.webapi.userApi.ResponseDataUser
 import com.example.tubes_pbp.webapi.userApi.UserData
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.skydoves.balloon.ArrowPositionRules
 import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.BalloonAnimation
 import com.skydoves.balloon.BalloonSizeSpec
 import kotlinx.android.synthetic.main.activity_login.*
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import www.sanju.motiontoast.MotionToast
+import kotlin.reflect.full.memberProperties
 
 
 class LoginActivity : AppCompatActivity() {
@@ -129,37 +134,9 @@ class LoginActivity : AppCompatActivity() {
             val username: String = inputUsername.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
-            if (username.isEmpty()){
-                //inputUsername.setError("Username must be filled with text")
-                Toast.makeText(
-                    this,
-                    "Username tidak boleh kosong!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                prefManager.setLoggin(false)
-            }
 
-            if (password.isEmpty()){
-                //inputPassword.setError("Password must be filled with text")
-                Toast.makeText(
-                    this,
-                    "Password tidak boleh kosong!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                prefManager.setLoggin(false)
-            }
 
-            if (password.isEmpty() && username.isEmpty()){
-                //inputPassword.setError("Password must be filled with text")
-                Toast.makeText(
-                    this,
-                    "Username dan Password tidak boleh kosong!",
-                    Toast.LENGTH_SHORT
-                ).show()
-                prefManager.setLoggin(false)
-            }
-
-            getAllDataUser()
+            login(username,password)
 
 
 
@@ -173,29 +150,6 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-//            CoroutineScope(Dispatchers.IO).launch {
-//                val user = usersDb.usersDao().getUser(username,password)
-//
-//                if (user == null){
-//                    Log.d("LoginActivity","USER IS NULL")
-//                    withContext(Dispatchers.Main){
-//                        inputUsername.setError("Username tidak sesuai !")
-//                        inputPassword.setError("Password tidak sesuai !")
-//                        prefManager.setLoggin(false)
-//                        mySnackbar.show()
-//                    }
-//                }else{
-//                    Log.d("LoginActivity","USER FOUND")
-//                    withContext(Dispatchers.Main){
-//                        startActivity(moveHome)
-//                        prefManager.setLoggin(true)
-//                        prefManager.setUser(user)
-//                        sendNotification()
-//                    }
-//
-//                }
-//
-//            }
 
 
         })
@@ -268,43 +222,78 @@ class LoginActivity : AppCompatActivity() {
         inputPassword.getEditText()?.setText(vPassword)
     }
 
-    fun getAllDataUser(): ArrayList<UserData> {
-        RClient.instances.getAllDataUser().enqueue(object :
-            Callback<ResponseDataUser> {
+    fun login(username :String,password :String) {
+        RClient.instances.loginUser(username,password).enqueue(object :
+            Callback<ResponseCreate> {
             override fun onResponse(
-                call: Call<ResponseDataUser>,
-                response: Response<ResponseDataUser>
+                call: Call<ResponseCreate>,
+                response: Response<ResponseCreate>
             ){
                 if (response.isSuccessful){
-                    listUser.clear()
                     response.body()?.let {
-                        listUser.addAll(it.data)
-                        listUser.find { it.username == inputUsername.getEditText()?.getText().toString() && it.password == inputPassword.getEditText()?.getText().toString() }
-                            ?.let { it1 -> filterUser.add(it1) }
+                    prefManager.setLoggin(true)
+                    listUser.add(it.data)
+                    Log.d(TAG,  " LIST USER WONTEN " + listUser.toString())
 
-                        Log.d(TAG, listUser.toString() + " LIST USER")
+                    prefManager.setUserID(listUser[0].id)
 
-                        if (filterUser.isEmpty()){
-                            Log.d(TAG,filterUser.toString() + " LIST USER EMPTY")
+                    showToast("Login Berhasil")
+                    startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+                    }
+                }else{
+                    val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+
+                    if (getError(jsonObj,"username").isNotEmpty() && getError(jsonObj,"password").isNotEmpty() ){
+                        Toast.makeText(
+                            this@LoginActivity,
+                            getError(jsonObj,"username") + "dan" + getError(jsonObj,"password"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        prefManager.setLoggin(false)
+                    }else{
+                        if (getError(jsonObj,"username").isNotEmpty()){
+                            Toast.makeText(
+                                this@LoginActivity,
+                                getError(jsonObj,"username"),
+                                Toast.LENGTH_SHORT
+                            ).show()
                             prefManager.setLoggin(false)
-                            Snackbar.make(loginLayout,"Login Invalid !",Snackbar.LENGTH_SHORT).show()
-                        }else{
-                            Log.d(TAG,filterUser.toString() + " LIST USER WONTEN")
-                            prefManager.setLoggin(true)
-                            prefManager.setUserID(filterUser[0].id)
-                            showToast("Login Berhasil")
-                            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
                         }
 
+                        if (getError(jsonObj,"password").isNotEmpty()){
+                            Toast.makeText(
+                                this@LoginActivity,
+                                getError(jsonObj,"password"),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            prefManager.setLoggin(false)
+                        }
 
                     }
+
+                    if (getError(jsonObj,"message").isNotEmpty()){
+                        Toast.makeText(
+                            this@LoginActivity,
+                            getError(jsonObj,"message"),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        prefManager.setLoggin(false)
+                    }
+
+
+
+
+
+
+
+
+                    Log.d(TAG, "WOI ERROR" + jsonObj )
                 }
             }
-            override fun onFailure(call: Call<ResponseDataUser>, t: Throwable) {
+            override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {
             }
         })
 
-        return listUser
     }
 
     fun showToast(text : String){
@@ -315,5 +304,17 @@ class LoginActivity : AppCompatActivity() {
             MotionToast.LONG_DURATION,
             ResourcesCompat.getFont(this, www.sanju.motiontoast.R.font.helvetica_regular)
         )
+    }
+
+    fun getError(jsonObject: JSONObject, target: String): String {
+        if (jsonObject.has(target)){
+            return jsonObject.get(target).toString()
+                .replace("[","")
+                .replace("]","")
+                .replace("\"","")
+        }else{
+            return ""
+        }
+
     }
 }

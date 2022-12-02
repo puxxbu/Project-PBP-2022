@@ -31,4 +31,14 @@ interface apiUser {
         @Field("nama") nama:String?,
         @Field("alamat") alamat:String?,
     ): Call<ResponseCreate>
+    @FormUrlEncoded
+    @POST("login")
+    fun loginUser(
+        @Field("username") username:String?,
+        @Field("password") password:String?,
+    ): Call<ResponseCreate>
+
+
+
+
 }

@@ -93,6 +93,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.13.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.13.0'
 
+    //reflect
+    implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
+
     //library Baloon
     implementation "com.github.skydoves:balloon:1.4.7"
 
