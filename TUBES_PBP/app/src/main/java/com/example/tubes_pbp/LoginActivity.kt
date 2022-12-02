@@ -138,20 +138,6 @@ class LoginActivity : AppCompatActivity() {
 
             login(username,password)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         })
     }
 
@@ -246,7 +232,7 @@ class LoginActivity : AppCompatActivity() {
                     if (getError(jsonObj,"username").isNotEmpty() && getError(jsonObj,"password").isNotEmpty() ){
                         Toast.makeText(
                             this@LoginActivity,
-                            getError(jsonObj,"username") + "dan" + getError(jsonObj,"password"),
+                            getError(jsonObj,"username") + " dan " + getError(jsonObj,"password"),
                             Toast.LENGTH_SHORT
                         ).show()
                         prefManager.setLoggin(false)
