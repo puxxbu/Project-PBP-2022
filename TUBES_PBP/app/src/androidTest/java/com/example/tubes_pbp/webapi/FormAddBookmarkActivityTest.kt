@@ -45,7 +45,7 @@ class FormAddBookmarkActivityTest {
             )
         )
         materialButton.perform(click())
-        onView(isRoot()).perform(waitFor(3000))
+        onView(isRoot()).perform(waitFor(5000))
 
         val textInputEditText = onView(
             allOf(
@@ -76,7 +76,7 @@ class FormAddBookmarkActivityTest {
             )
         )
         materialButton2.perform(click())
-        onView(isRoot()).perform(waitFor(3000))
+        onView(isRoot()).perform(waitFor(5000))
 
         val textInputEditText2 = onView(
             allOf(
@@ -107,7 +107,7 @@ class FormAddBookmarkActivityTest {
             )
         )
         materialButton3.perform(click())
-        onView(isRoot()).perform(waitFor(3000))
+        onView(isRoot()).perform(waitFor(7000))
     }
 
     private fun childAtPosition(

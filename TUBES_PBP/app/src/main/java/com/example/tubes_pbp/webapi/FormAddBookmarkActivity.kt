@@ -49,26 +49,26 @@ class FormAddBookmarkActivity : AppCompatActivity() {
     fun saveData(){
 
         with(binding) {
-            if (txtNama!!.text.toString().isEmpty()) {
-                Toast.makeText(
-                    this@FormAddBookmarkActivity,
-                    "Nama Hotel tidak boleh kosong!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else if (txtAlamat!!.text.toString().isEmpty()) {
-                Toast.makeText(
-                    this@FormAddBookmarkActivity,
-                    "Alamat Hotel tidak boleh kosong!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            } else if (txtNama!!.text.toString().isEmpty() && txtAlamat!!.text.toString().isEmpty()) {
-                Toast.makeText(
-                    this@FormAddBookmarkActivity,
-                    "Nama dan Alamat Hotel tidak boleh kosong!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            else {
+//            if (txtNama!!.text.toString().isEmpty()) {
+//                Toast.makeText(
+//                    this@FormAddBookmarkActivity,
+//                    "Nama Hotel tidak boleh kosong!",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            } else if (txtAlamat!!.text.toString().isEmpty()) {
+//                Toast.makeText(
+//                    this@FormAddBookmarkActivity,
+//                    "Alamat Hotel tidak boleh kosong!",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            } else if (txtNama!!.text.toString().isEmpty() && txtAlamat!!.text.toString().isEmpty()) {
+//                Toast.makeText(
+//                    this@FormAddBookmarkActivity,
+//                    "Nama dan Alamat Hotel tidak boleh kosong!",
+//                    Toast.LENGTH_SHORT
+//                ).show()
+//            }
+//            else {
                 val nama = txtNama.text.toString()
                 val alamat = txtAlamat.text.toString()
 
@@ -79,11 +79,6 @@ class FormAddBookmarkActivity : AppCompatActivity() {
                         response: Response<ResponseCreate>
                     ) {
                         if (response.isSuccessful) {
-//                            Toast.makeText(
-//                                applicationContext,
-//                                "Data Berhasil ditambahkan !",
-//                                Toast.LENGTH_LONG
-//                            ).show()
                             MotionToast.Companion.createToast( this@FormAddBookmarkActivity, "Create Data is Success",
                                 "Data Hotel berhasil Disimpan",
                                 MotionToast.TOAST_SUCCESS,
@@ -94,33 +89,45 @@ class FormAddBookmarkActivity : AppCompatActivity() {
                             finish()
                         } else {
                             val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
-                            txtNama.setError(jsonObj.getString("message"))
-                            Toast.makeText(
-                                applicationContext,
-                                "Maaf sudah ada datanya",
-                                Toast.LENGTH_LONG
-                            ).show()
+                            if (getError(jsonObj,"nama").isNotEmpty() && getError(jsonObj,"alamat").isNotEmpty()){
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Isikan kolom nama dan alamat terlebih dahulu",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }else if (getError(jsonObj,"nama").isNotEmpty()){
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Isikan kolom nama terlebih dahulu",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }else if(getError(jsonObj,"alamat").isNotEmpty()){
+                                Toast.makeText(
+                                    applicationContext,
+                                    "Isikan kolom alamat terlebih dahulu",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            }
+
+
                         }
                     }
 
                     override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {
                     }
                 })
-            }
+//            }
         }
     }
-    private fun dateToString(year: Int, month: Int, dayofMonth:
-    Int): String {
-        return year.toString()+"-"+(month+1)+"-"+dayofMonth.toString()
-    }
-    private fun dateDialog(context: Context, datePicker:
-    DatePickerDialog.OnDateSetListener):DatePickerDialog {
-        val calender = Calendar.getInstance()
-        return DatePickerDialog(
-            context, datePicker,
-            calender[Calendar.YEAR],
-            calender[Calendar.MONTH],
-            calender[Calendar.DAY_OF_MONTH],
-        )
+    fun getError(jsonObject: JSONObject, target: String): String {
+        if (jsonObject.has(target)){
+            return jsonObject.get(target).toString()
+                .replace("[","")
+                .replace("]","")
+                .replace("\"","")
+        }else{
+            return ""
+        }
+
     }
 }

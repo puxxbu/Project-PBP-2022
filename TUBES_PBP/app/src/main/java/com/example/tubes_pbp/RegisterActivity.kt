@@ -227,8 +227,6 @@ class RegisterActivity : AppCompatActivity() {
                     }else {
                         val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
 
-                        val error = getError(jsonObj,"nama")
-                        Log.d(TAG, "WOI ERROR" + error )
 
                         with(binding){
 
