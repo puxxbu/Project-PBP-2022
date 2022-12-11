@@ -27,7 +27,11 @@ class BerandaFragment : Fragment(R.layout.fragment_beranda) {
 
         val moveMap = Intent(getActivity(), MapActivity::class.java)
 
-        binding.btnMap.setOnClickListener{
+//        binding.btnMap.setOnClickListener{
+//            startActivity(moveMap)
+//        }
+
+        binding.tmlMaps.setOnClickListener{
             startActivity(moveMap)
         }
 
