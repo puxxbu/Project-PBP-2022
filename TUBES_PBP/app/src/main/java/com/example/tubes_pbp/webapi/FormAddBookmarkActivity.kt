@@ -69,53 +69,53 @@ class FormAddBookmarkActivity : AppCompatActivity() {
 //                ).show()
 //            }
 //            else {
-                val nama = txtNama.text.toString()
-                val alamat = txtAlamat.text.toString()
+            val nama = txtNama.text.toString()
+            val alamat = txtAlamat.text.toString()
 
-                RClient.instances.createData(nama, alamat).enqueue(object :
-                    Callback<ResponseCreate> {
-                    override fun onResponse(
-                        call: Call<ResponseCreate>,
-                        response: Response<ResponseCreate>
-                    ) {
-                        if (response.isSuccessful) {
-                            MotionToast.Companion.createToast( this@FormAddBookmarkActivity, "Create Data is Success",
-                                "Data Hotel berhasil Disimpan",
-                                MotionToast.TOAST_SUCCESS,
-                                MotionToast.GRAVITY_BOTTOM,
-                                MotionToast.LONG_DURATION,
-                                null
-                            )
-                            finish()
-                        } else {
-                            val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
-                            if (getError(jsonObj,"nama").isNotEmpty() && getError(jsonObj,"alamat").isNotEmpty()){
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Isikan kolom nama dan alamat terlebih dahulu",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }else if (getError(jsonObj,"nama").isNotEmpty()){
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Isikan kolom nama terlebih dahulu",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }else if(getError(jsonObj,"alamat").isNotEmpty()){
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Isikan kolom alamat terlebih dahulu",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                            }
-
-
+            RClient.instances.createData(nama, alamat).enqueue(object :
+                Callback<ResponseCreate> {
+                override fun onResponse(
+                    call: Call<ResponseCreate>,
+                    response: Response<ResponseCreate>
+                ) {
+                    if (response.isSuccessful) {
+                        MotionToast.Companion.createToast( this@FormAddBookmarkActivity, "Create Data is Success",
+                            "Data Hotel berhasil Disimpan",
+                            MotionToast.TOAST_SUCCESS,
+                            MotionToast.GRAVITY_BOTTOM,
+                            MotionToast.LONG_DURATION,
+                            null
+                        )
+                        finish()
+                    } else {
+                        val jsonObj = JSONObject(response.errorBody()!!.charStream().readText())
+                        if (getError(jsonObj,"nama").isNotEmpty() && getError(jsonObj,"alamat").isNotEmpty()){
+                            Toast.makeText(
+                                applicationContext,
+                                "Isikan kolom nama dan alamat terlebih dahulu",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }else if (getError(jsonObj,"nama").isNotEmpty()){
+                            Toast.makeText(
+                                applicationContext,
+                                "Isikan kolom nama terlebih dahulu",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }else if(getError(jsonObj,"alamat").isNotEmpty()){
+                            Toast.makeText(
+                                applicationContext,
+                                "Isikan kolom alamat terlebih dahulu",
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                    }
 
-                    override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {
+
                     }
-                })
+                }
+
+                override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {
+                }
+            })
 //            }
         }
     }
