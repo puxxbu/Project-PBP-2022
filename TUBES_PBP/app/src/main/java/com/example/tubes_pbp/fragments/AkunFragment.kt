@@ -30,6 +30,7 @@ import com.example.tubes_pbp.databinding.FragmentEditAkunBinding
 import com.example.tubes_pbp.entity.room.UsersDB
 import com.example.tubes_pbp.maps.MapActivity
 import com.example.tubes_pbp.notifications.NotificationReceiver
+import com.example.tubes_pbp.webapi.FormAddBookmarkActivity
 import com.example.tubes_pbp.webapi.RClient
 import com.example.tubes_pbp.webapi.ResponseCreate
 import com.example.tubes_pbp.webapi.userApi.ResponseDataUser
@@ -43,7 +44,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class AkunFragment : Fragment(R.layout.fragment_akun) {
-    private var _binding : FragmentAkunBinding? = null
+    private var _binding: FragmentAkunBinding? = null
     private val binding get() = _binding!!
 
     private lateinit var usersDb: UsersDB
@@ -63,7 +64,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
     ): View? {
 
 
-        _binding = DataBindingUtil.inflate(inflater,R.layout.fragment_akun,container, false)
+        _binding = DataBindingUtil.inflate(inflater, R.layout.fragment_akun, container, false)
 
         var dialog = LogoutAlert()
         val rootView: View = inflater.inflate(R.layout.fragment_akun, container, false)
@@ -76,7 +77,6 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
 
         binding.user = prefManager.getUser()
         setDataUser()
-
 
 
 //        val nama = prefManager.getUser()?.nama
@@ -117,7 +117,11 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
         }
 
         binding.btnEdit.setOnClickListener {
-            updateDataUser()
+            var i = Intent(
+                context,
+                EditAkunActivity::class.java
+            )
+            context?.startActivity(i)
 
 
 //            CoroutineScope(Dispatchers.IO).launch {
@@ -144,7 +148,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
 
 
         binding.btnLogout.setOnClickListener {
-            dialog.show(parentFragmentManager, "alertLogout" )
+            dialog.show(parentFragmentManager, "alertLogout")
         }
 
         binding.btnCamProfile.setOnClickListener {
@@ -162,41 +166,53 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
     }
 
     private fun createNotificationChannel() {
-        val notificationManager : NotificationManager =
+        val notificationManager: NotificationManager =
             getActivity()?.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = "Notification Title"
             val descriptionText = "Notification Description"
 
-            val channel1 = NotificationChannel(CHANNEL_ID,"Main Channel", NotificationManager.IMPORTANCE_LOW).apply {
+            val channel1 = NotificationChannel(
+                CHANNEL_ID,
+                "Main Channel",
+                NotificationManager.IMPORTANCE_LOW
+            ).apply {
                 description = descriptionText
             }
-            val channel2 = NotificationChannel(CHANNEL_ID2,"Second Channel", NotificationManager.IMPORTANCE_LOW).apply {
+            val channel2 = NotificationChannel(
+                CHANNEL_ID2,
+                "Second Channel",
+                NotificationManager.IMPORTANCE_LOW
+            ).apply {
                 description = descriptionText
             }
 
-           notificationManager.createNotificationChannel(channel1)
-           notificationManager.createNotificationChannel(channel2)
+            notificationManager.createNotificationChannel(channel1)
+            notificationManager.createNotificationChannel(channel2)
         }
     }
 
     private fun sendNotification() {
-        val intent : Intent = Intent(getActivity(), HomeActivity::class.java).apply {
+        val intent: Intent = Intent(getActivity(), HomeActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        val notificationManager : NotificationManagerCompat
+        val notificationManager: NotificationManagerCompat
 
         val max = 10
         var progress = 0
 
-        val pendingIntent : PendingIntent = PendingIntent.getActivity(getActivity(), 0,intent,0)
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(getActivity(), 0, intent, 0)
 
 
-        val broadcastIntent : Intent = Intent(getActivity(), NotificationReceiver::class.java)
-        val actionIntent = PendingIntent.getBroadcast(getActivity(), 0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
-
+        val broadcastIntent: Intent = Intent(getActivity(), NotificationReceiver::class.java)
+        val actionIntent = PendingIntent.getBroadcast(
+            getActivity(),
+            0,
+            broadcastIntent,
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
 
 
         val builder2 = NotificationCompat.Builder(requireContext(), CHANNEL_ID)
@@ -205,8 +221,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
             .setContentText("")
             .setContentIntent(null)
             .clearActions()
-            .setProgress(0, 0,false)
-
+            .setProgress(0, 0, false)
 
 
 //        CoroutineScope(Dispatchers.IO).launch {
@@ -233,18 +248,16 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
 //        }
 
 
-
-
     }
 
-    fun setDataUser(){
+    fun setDataUser() {
         RClient.instances.getDataUser(prefManager.getUserID()).enqueue(object :
             Callback<ResponseDataUser> {
             override fun onResponse(
                 call: Call<ResponseDataUser>,
                 response: Response<ResponseDataUser>
-            ){
-                if (response.isSuccessful){
+            ) {
+                if (response.isSuccessful) {
                     response.body()?.let {
                         listUser.addAll(it.data)
                         with(binding) {
@@ -258,32 +271,33 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
                     }
                 }
             }
+
             override fun onFailure(call: Call<ResponseDataUser>, t: Throwable) {
             }
         })
     }
-
-    fun updateDataUser(){
-        val nama = binding.tilNamaLengkap.getEditText()?.getText().toString()
-        val tglLahir = binding.tilTglLahir.getEditText()?.getText().toString()
-        val noHP = binding.tilNoHP.getEditText()?.getText().toString()
-        val email = binding.tilEmail.getEditText()?.getText().toString()
-
-
-        RClient.instances.updateDataUser(prefManager.getUserID(),listUser[0].username,listUser[0].password,nama,email,noHP,tglLahir).enqueue(object :
-            Callback<ResponseCreate> {
-            override fun onResponse(
-                call: Call<ResponseCreate>,
-                response: Response<ResponseCreate>
-            ) {
-                if(response.isSuccessful) {
-                    binding.textNamaUser.setText(nama)
-                    Toast.makeText(getActivity(),"${response.body()?.pesan}", Toast.LENGTH_LONG).show()
-                }
-            }
-            override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {
-            }
-        })
-    }
-
 }
+//    fun updateDataUser(){
+//        val nama = binding.tilNamaLengkap.getEditText()?.getText().toString()
+//        val tglLahir = binding.tilTglLahir.getEditText()?.getText().toString()
+//        val noHP = binding.tilNoHP.getEditText()?.getText().toString()
+//        val email = binding.tilEmail.getEditText()?.getText().toString()
+//
+//
+//        RClient.instances.updateDataUser(prefManager.getUserID(),listUser[0].username,listUser[0].password,nama,email,noHP,tglLahir).enqueue(object :
+//            Callback<ResponseCreate> {
+//            override fun onResponse(
+//                call: Call<ResponseCreate>,
+//                response: Response<ResponseCreate>
+//            ) {
+//                if(response.isSuccessful) {
+//                    binding.textNamaUser.setText(nama)
+//                    Toast.makeText(getActivity(),"${response.body()?.pesan}", Toast.LENGTH_LONG).show()
+//                }
+//            }
+//            override fun onFailure(call: Call<ResponseCreate>, t: Throwable) {
+//            }
+//        })
+//    }
+//
+//}
