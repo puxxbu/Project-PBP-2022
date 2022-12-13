@@ -111,6 +111,7 @@
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
+        <activity android:name=".EditAkun"/>
         <activity
             android:name=".EditPesanan"
             android:exported="true" />
