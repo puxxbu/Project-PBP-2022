@@ -56,6 +56,11 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
 
     private val listUser = ArrayList<UserData>()
 
+    override fun onStart() {
+        super.onStart()
+        setDataUser()
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -75,7 +80,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
         createNotificationChannel()
 
         binding.user = prefManager.getUser()
-        setDataUser()
+//        setDataUser()
 
 
 
@@ -105,7 +110,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
             updateLable(myCalendar, binding)
         }
 
-/*        binding.tietTglLahir.setOnClickListener {
+        binding.tietTglLahir.setOnClickListener {
             Log.d("CALENDAR", "TES MASUK KALENDER HARUSE")
             DatePickerDialog(
                 requireContext(),
@@ -114,7 +119,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
                 myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)
             ).show()
-        }*/
+        }
 
         binding.btnEdit.setOnClickListener {
             var i = Intent(context,
@@ -248,6 +253,7 @@ class AkunFragment : Fragment(R.layout.fragment_akun) {
             ){
                 if (response.isSuccessful){
                     response.body()?.let {
+                        listUser.clear()
                         listUser.addAll(it.data)
                         with(binding) {
                             textNamaUser.setText(listUser[0].nama)

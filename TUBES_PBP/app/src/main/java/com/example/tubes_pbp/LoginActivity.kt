@@ -128,15 +128,15 @@ class LoginActivity : AppCompatActivity() {
 
         btnLogin.setOnClickListener(View.OnClickListener {
 
-//            prefManager.setLoggin(false)
+            prefManager.setLoggin(false)
 
             val username: String = inputUsername.getEditText()?.getText().toString()
             val password: String = inputPassword.getEditText()?.getText().toString()
 
 
 
-//            login(username,password)
-            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
+            login(username,password)
+//            startActivity(Intent(this@LoginActivity, HomeActivity::class.java))
 
         })
     }
